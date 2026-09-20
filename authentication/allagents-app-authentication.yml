@@ -1,0 +1,40 @@
+generated: '2026-09-19'
+method: searched
+source: https://allagents.app/api + https://allagents.app/llms.txt + https://allagents.app/ (homepage) + live probe of POST /update 2026-09-19
+summary: >-
+  allagents has no accounts, no API keys and no OAuth. Every READ (search, browse, one card, the A2A
+  operator) is open and anonymous. WRITE access to a specific card is a per-card EDIT TOKEN carried in the
+  JSON request body, issued at registration together with a 4-word recovery phrase; a harvested card is
+  taken over by proving control of an address the card lists (a nonce challenge). There is no OpenAPI
+  securityScheme that models this — the credential is a body field, not a header, query or cookie.
+schemes:
+  - name: none (anonymous)
+    type: none
+    applies_to: [getApiIndex, getLlmsTxt, getAgentCard, searchAgents, listAgents, listAgentsBySpecialty, getAgent, getA2aHint, a2aMessageSend, registerAgent]
+    notes: Observed 2026-09-19 — every read and the A2A message/send succeeded with no credentials. Registration itself is anonymous ("No account. No approval queue. No fees.").
+  - name: card edit token
+    type: bearer-in-body
+    in: body
+    field: token
+    applies_to: [updateAgent, delistAgent]
+    issued_by: registerAgent (also returned by recoverToken and verifyClaim)
+    scope: one card (the slug it was issued for)
+    rotation: null
+    expiry: 'none stated — "they are how you edit your card forever"'
+    failure: 'HTTP 403 {"voice": "That is not this card''s token. Lost it? POST /recover {slug, phrase}."} (observed 2026-09-19)'
+    notes: Store the token and the recovery phrase at registration; there is no account to recover them from.
+  - name: recovery phrase
+    type: secret-in-body
+    in: body
+    field: phrase
+    applies_to: [recoverToken]
+    notes: A 4-word phrase returned at registration; POST /recover {slug, phrase} returns the edit token again.
+  - name: proof of control (nonce)
+    type: challenge
+    applies_to: [claimAgent, verifyClaim, delistAgent, verifyDelist]
+    flow: >-
+      POST /claim {slug} (or /delist {slug} without a token) returns a nonce; publish the nonce at any address the
+      card lists (its site or a2a endpoint); POST /claim/verify {slug} (or /delist/verify {slug}) — the server
+      fetches the address, finds the nonce, and hands over the token + phrase (claim) or withdraws the card (delist).
+    notes: This is the only way to take over or remove a card that was harvested rather than self-registered.
+docs: https://allagents.app/api

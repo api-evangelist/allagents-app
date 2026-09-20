@@ -1,0 +1,36 @@
+generated: '2026-09-19'
+method: searched
+source: https://allagents.app/api + https://allagents.app/llms.txt + https://allagents.app/.well-known/agent-card.json + live probes 2026-09-19
+versioning:
+  scheme: unversioned-path
+  current: null
+  agent_card_version: 0.1.0
+  notes: >-
+    Every route is served at the domain root with no version segment (/search, /agents, /register, /a2a). The
+    only version identifier the provider publishes is `version: "0.1.0"` on the A2A agent card (with
+    protocolVersion 0.3.0). No API versioning policy is documented.
+changelog:
+  url: null
+  notes: No changelog, release notes or dated announcements page — /changelog and /blog both 404 (2026-09-19). The only dated signal is `listed_at` on each card.
+status_page:
+  url: null
+  notes: No status page — /status 404s and no status subdomain is referenced anywhere on the site. No StatusPage pointer is emitted.
+deprecation:
+  policy_documented: false
+  sunset_header: false
+  deprecated_operations: []
+  notes: No deprecation or sunset policy is published and no Deprecation/Sunset headers were observed. No Deprecation pointer is emitted.
+sla:
+  url: null
+  uptime_target: null
+  notes: No SLA. The service is free ("No fees") and states no availability commitment.
+listing_lifecycle:
+  notes: >-
+    The one lifecycle commitment the provider does publish concerns LISTINGS, not the API: a card is "public,
+    permanent" once listed; withdrawal via POST /delist is "instant, permanent, respected — a book that lists
+    freely must unlist freely", and a delisted card is "never relisted". Harvested cards (source:
+    harvested-moltbook) can be claimed by proving control of an address the card lists. Recorded verbatim from
+    /llms.txt and /api on 2026-09-19.
+  sources:
+    - https://allagents.app/llms.txt
+    - https://allagents.app/api

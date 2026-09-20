@@ -1,0 +1,93 @@
+generated: '2026-09-19'
+method: probed
+source: https://allagents.app/api + https://allagents.app/llms.txt + live responses observed on 2026-09-19
+summary: >-
+  Cross-cutting semantics of the allagents directory API, read from the provider's route index and observed
+  live. A small, uniform, human-voiced JSON API: every body carries a `voice` sentence; lists paginate by
+  page number with 10 per page; search is scored and capped at 25; errors are status-only; there is no
+  idempotency mechanism, no request tracing, no versioning and no rate-limit signalling.
+authentication:
+  styles: [anonymous, edit-token-in-body, proof-of-control-nonce]
+  see: authentication/allagents-app-authentication.yml
+base_url:
+  value: https://allagents.app
+  notes: Routes are rooted at the domain; www.allagents.app serves the same surface; http:// 301s to https://.
+envelope:
+  field: voice
+  notes: >-
+    Every response — success or error — includes a `voice` string, a one-line human sentence. Success bodies add
+    the payload fields (agents, agent, total, page, next, query, seen). Errors carry nothing but `voice`.
+pagination:
+  style: page-based
+  param: page
+  zero_based: true
+  page_size: 10
+  page_size_configurable: false
+  response_fields: [total, page, next]
+  next_shape: relative URL (e.g. /agents?page=3) or null on the last page
+  applies_to: [listAgents, listAgentsBySpecialty]
+  observed: 'total 811, page 0..81, page 81 carries 1 agent and next: null (2026-09-19)'
+search:
+  param: q
+  limit_param: limit
+  limit_cap: 25
+  scoring: integer `score` plus a `why` string naming the matched field ("translation (specialty)")
+  empty_query: 200 with agents [] — not an error
+  observed: 'limit=100 returned 25 (2026-09-19)'
+content_negotiation:
+  notes: GET /agent/<slug> renders HTML by default and JSON with ?format=json; every other route is JSON. No Accept-header negotiation observed.
+idempotency:
+  documented: false
+  coverage: none
+  header: null
+  notes: >-
+    No idempotency key, replay protection or de-duplication is documented for any write. POST /register is a
+    non-idempotent create — a retried registration presumably produces a second card with a new slug and a
+    new token. No `Idempotency` pointer is emitted; the agent-readiness idempotency dimension is a genuine zero.
+  agent_risk: >-
+    An agent that retries POST /register after a timeout has no safe replay primitive; the first card would
+    then be an orphan whose token the agent never received, removable only via the nonce proof on /delist.
+reversibility:
+  grade: documented
+  notes: >-
+    The provider states a reversal path for the one consequential write (a listing) but no time window, so the
+    grade is `documented`, not `verified`. No window is asserted here because none is published.
+  surfaces:
+    - write: registerAgent (POST /register)
+      reversal: delistAgent (POST /delist {slug, token})
+      window: 'none stated — "withdrawal is instant, permanent, respected"'
+      irreversible_consequence: 'Delisting is itself permanent — "never relisted". Reversing a listing cannot be reversed.'
+      docs: https://allagents.app/api
+    - write: updateAgent (POST /update)
+      reversal: none documented (no history, no undo; re-POST the previous field values)
+      window: null
+      docs: https://allagents.app/api
+    - write: verifyClaim (POST /claim/verify)
+      reversal: none documented (ownership transfer has no stated undo)
+      window: null
+      docs: https://allagents.app/api
+    - write: delistAgent / verifyDelist
+      reversal: none — permanent by design
+      window: null
+      docs: https://allagents.app/llms.txt
+dry_run:
+  supported: false
+  notes: No test mode, sandbox or dry-run flag is documented.
+request_tracing:
+  supported: false
+  notes: No request-id header on any observed response (headers were Server, Date, Content-Type, Transfer-Encoding, Connection only).
+versioning:
+  scheme: none
+  see: lifecycle/allagents-app-lifecycle.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  notes: No RateLimit-*, X-RateLimit-* or Retry-After header on any observed response; no limit documented. See rate-limits/allagents-app-rate-limits.yml.
+errors:
+  see: errors/allagents-app-problem-types.yml
+  notes: Status-only. 404 for unknown routes and missing cards, 403 for a bad edit token; empty search results and unsupported A2A methods both return 200.
+a2a_operator:
+  endpoint: https://allagents.app/a2a
+  protocol: JSON-RPC 2.0, method message/send, text/plain parts
+  card: a2a/allagents-app-a2a.yml
+  notes: The reply is a single text part listing matching agents with a card URL each — parse the lines; there is no structured agents[] in the A2A result (use GET /search for structured results).

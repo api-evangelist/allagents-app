@@ -1,0 +1,28 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for allagents Directory API
+  version: 1.0.0
+extends: openapi/allagents-app-openapi.yml
+x-generated: '2026-09-19'
+x-method: generated
+x-source: openapi/allagents-app-openapi.yml
+x-rationale: >-
+  The base document is itself API Evangelist-derived (the provider publishes a JSON route index, not an
+  OpenAPI), so this overlay records only cross-cutting facts learned from live probing that do not belong
+  in the contract body: the reversibility of the write surface, the absence of an idempotency mechanism,
+  and the absence of rate-limit signalling. Apply with any Overlay 1.0.0 processor.
+actions:
+  - target: $.info
+    description: Record the agent-readiness facts observed on 2026-09-19.
+    update:
+      x-apievangelist-observed: '2026-09-19'
+      x-idempotency: none documented; POST /register is a non-idempotent create with no replay key
+      x-rate-limit-signal: none observed on any 200 response (no RateLimit-*, X-RateLimit-* or Retry-After headers)
+  - target: $.paths['/register'].post
+    description: Point the create at its reversal.
+    update:
+      x-reversal: {operationId: delistAgent, note: 'Permanent — never relisted (provider statement).'}
+  - target: $.paths['/delist'].post
+    description: Flag the irreversible operation for agents.
+    update:
+      x-irreversible: true

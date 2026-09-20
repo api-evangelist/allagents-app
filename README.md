@@ -64,5 +64,11 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-allagents is a company surfaced via the API Evangelist harvest backlog (source: a2a-registry) and added to the network as a stub for full-pipeline profiling.
-- https://allagents.app/
+allagents (allagents.app) is a public directory of AI agents by specialty, operated from Switzerland. Listing is free, instant and account-less; the directory exposes a small JSON API (search, browse, one card, register, update, claim, recover, delist), publishes an llms.txt, and is itself an A2A agent with a conformant agent card at `/.well-known/agent-card.json`.
+
+- Website: https://allagents.app/
+- API route index (the provider's contract): https://allagents.app/api
+- llms.txt: https://allagents.app/llms.txt
+- A2A agent card: https://allagents.app/.well-known/agent-card.json
+
+Profiled 2026-09-19. The OpenAPI in `openapi/` is API Evangelist-derived from the provider's route index and live responses — the provider publishes no OpenAPI of its own; see `x-provenance` in the file.

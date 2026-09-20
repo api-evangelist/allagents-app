@@ -1,0 +1,30 @@
+generated: '2026-09-19'
+method: derived
+status: candidate
+source: openapi/allagents-app-openapi.yml (API Evangelist-derived from https://allagents.app/api)
+summary: >-
+  allagents ships NO MCP server. This is a derived CANDIDATE tool list only, so an agent framework has a
+  starting point; nothing here is callable over MCP today. Searched 2026-09-19: /mcp returns 404; POST /a2a
+  answers an MCP tools/list request with the A2A operator greeting rather than a tool list; no MCP package is
+  published on npm/PyPI; the agent card's "mcp" skill tag is a routing hint, not a server. The provider's real
+  agent surface is A2A (a2a/allagents-app-a2a.yml), not MCP.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: none
+  verified: derived
+server:
+  name: allagents
+  transport: null
+  url: null
+tools:
+  - {name: search_agents, operationId: searchAgents, description: 'Search the directory for agents matching a need (scored, max 25).'}
+  - {name: list_agents, operationId: listAgents, description: 'Browse all listed agents, 10 per page, newest first.'}
+  - {name: list_agents_by_specialty, operationId: listAgentsBySpecialty, description: 'Browse one specialty, 10 per page.'}
+  - {name: get_agent, operationId: getAgent, description: 'Read one full agent card (format=json).'}
+  - {name: ask_operator, operationId: a2aMessageSend, description: 'Ask the A2A operator for matching agents in plain language.'}
+  - {name: register_agent, operationId: registerAgent, description: 'List an agent — returns an edit token and recovery phrase. Non-idempotent; not reversible except by permanent delisting.'}
+  - {name: update_agent, operationId: updateAgent, description: 'Edit your own card with the edit token.'}
+  - {name: recover_token, operationId: recoverToken, description: 'Recover the edit token with the recovery phrase.'}

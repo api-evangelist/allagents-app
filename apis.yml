@@ -1,18 +1,99 @@
 aid: allagents-app
 name: allagents
-description: 'allagents is a company surfaced via the API Evangelist harvest backlog (source: a2a-registry)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  allagents (allagents.app) is a public directory of AI agents by specialty, operated from Switzerland. It
+  lists 811 agents across specialties such as trading, research, coding, memory, automation, legal, commerce,
+  identity and security, each card carrying the agent's name, address, protocols and how to reach it. Listing
+  is free, instant and account-less — one POST returns an edit token and a recovery phrase — and withdrawal
+  is instant and permanent. The directory exposes a small JSON API (search, browse by page or specialty, one
+  card, register, update, claim, recover, delist), publishes an llms.txt, and is itself an A2A agent: its
+  conformant agent card at /.well-known/agent-card.json points at a JSON-RPC message/send operator that
+  answers a plain-language need with matching agents.
+image: https://allagents.app/logo.png
 url: https://raw.githubusercontent.com/api-evangelist/allagents-app/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:a2a-registry
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-09-19 (local-v3; was a2a-registry harvest stub)
+x-headquarters: Switzerland
 specificationVersion: '0.20'
 created: '2026-09-19'
 modified: '2026-09-19'
 tags:
 - Company
-apis: []
+- AI Agents
+- Agent Directory
+- A2A
+- Discovery
+- Search
+- Registry
+- Switzerland
+tags_raw:
+- Company
+- AI Agents
+- Agent Directory
+- A2A
+- Discovery
+- Search
+- Registry
+- Switzerland
+apis:
+- name: allagents Directory API
+  description: >-
+    Search, browse and read agent cards, and manage your own — register, update, claim a harvested card,
+    recover a lost token, delist. JSON over HTTPS rooted at the domain, documented by the provider in a
+    machine index at GET /api. Reads are anonymous; writes carry a per-card edit token in the body.
+  image: https://allagents.app/logo.png
+  humanURL: https://allagents.app/api
+  baseURL: https://allagents.app
+  tags:
+  - AI Agents
+  - Directory
+  - Search
+  - Registry
+  - Discovery
+  tags_raw:
+  - AI Agents
+  - directory
+  - search
+  - registry
+  - discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/allagents-app-openapi.yml
+    name: OpenAPI (API Evangelist-derived from the provider's /api route index; not first-party)
+  - type: Documentation
+    url: https://allagents.app/api
+  - type: Overlay
+    url: overlays/allagents-app-directory-overlay.yaml
+  - type: MCPServer
+    url: mcp/allagents-app-mcp.yml
+    name: MCP candidate only (deployment mode none — the provider ships no MCP server)
+  - type: DataModel
+    url: data-model/allagents-app-data-model.yml
+- name: allagents Operator (A2A Agent)
+  description: >-
+    The directory as an A2A agent. POST a JSON-RPC 2.0 message/send stating a need ("I need a translation
+    agent") and the operator answers with ranked matching agents and a card link for each. Discovered through
+    a conformant A2A 0.3.0 agent card at /.well-known/agent-card.json; no credentials required.
+  image: https://allagents.app/logo.png
+  humanURL: https://allagents.app/.well-known/agent-card.json
+  baseURL: https://allagents.app/a2a
+  tags:
+  - A2A
+  - AI Agents
+  - JSON-RPC
+  - Discovery
+  - Matchmaking
+  tags_raw:
+  - A2A
+  - AI Agents
+  - JSON-RPC
+  - discovery
+  - matchmaking
+  properties:
+  - type: Documentation
+    url: https://allagents.app/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -21,3 +102,49 @@ maintainers:
 common:
 - type: Website
   url: https://allagents.app/
+- type: Documentation
+  url: https://allagents.app/api
+- type: APIReference
+  url: https://allagents.app/api
+- type: GettingStarted
+  url: https://allagents.app/
+  name: Homepage quickstart — the one-POST curl example for listing an agent
+- type: LLMsTxt
+  url: https://allagents.app/llms.txt
+- type: LLMsTxt
+  url: llms/allagents-app-llms.txt
+- type: Support
+  url: mailto:allagents.contact@proton.me
+- type: Sitemap
+  url: https://allagents.app/sitemap.xml
+- type: AgentCard
+  url: a2a/allagents-app-a2a.yml
+- type: WellKnown
+  url: well-known/allagents-app-well-known.yml
+- type: Conformance
+  url: conformance/allagents-app-conformance.yml
+- type: ErrorCatalog
+  url: errors/allagents-app-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/allagents-app-lifecycle.yml
+- type: Authentication
+  url: authentication/allagents-app-authentication.yml
+- type: Conventions
+  url: conventions/allagents-app-conventions.yml
+- type: DomainSecurity
+  url: security/allagents-app-domain-security.yml
+- type: Plans
+  url: plans/allagents-app-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/allagents-app-rate-limits.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Packages
+  url: packages/allagents-app-packages.yml
+- type: RegulatoryPosture
+  url: regulatory/allagents-app-regulatory-posture.yml
+x-enrichment:
+  date: '2026-09-19'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v3

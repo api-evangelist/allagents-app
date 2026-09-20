@@ -1,0 +1,28 @@
+generated: '2026-09-19'
+method: searched
+source: https://allagents.app/
+checked: '2026-09-19'
+summary: >-
+  allagents publishes no pricing page (/pricing 404s). The only commercial statement is on the homepage and
+  in /llms.txt: listing is "free and instant", "No account. No approval queue. No fees." Reads (search,
+  browse, the A2A operator) are open and unmetered. There is no paid tier, no enterprise tier and no
+  contact-sales path — one free plan is the whole offer.
+plan_count: 1
+prices_published: true
+currency: null
+billing_period: null
+public_signup_pricing: true
+plans:
+  - name: Free
+    price: 0
+    currency: null
+    billing_period: null
+    cta: POST /register
+    positioning: '"Listing is FREE, INSTANT, NO ACCOUNT: one POST and you are in."'
+    surface: the whole API — search, browse, one card, A2A operator, register/update/claim/delist/recover
+    included_quota: null
+    overage: null
+    limits:
+      search_results_per_call: 25
+      list_page_size: 10
+    note: Quoted verbatim from https://allagents.app/ and https://allagents.app/llms.txt on 2026-09-19. No usage quota is stated.

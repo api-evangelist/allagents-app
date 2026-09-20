@@ -1,0 +1,58 @@
+generated: '2026-09-19'
+method: probed
+source: https://allagents.app/.well-known/agent-card.json + https://allagents.app/api + live probes 2026-09-19
+summary: >-
+  allagents conforms to the one standard that matters for its market — A2A — by serving a conformant agent
+  card at the canonical well-known path and answering JSON-RPC 2.0 message/send at the endpoint the card
+  names. It publishes no OAuth/OIDC surface (the API is open; write access is an edit token in the request
+  body), no RFC 9457 problem details, no RFC 9116 security.txt and no first-party OpenAPI. No compliance
+  programme or certification is published anywhere, so NO Compliance pointer is emitted.
+standards:
+  - id: a2a
+    conforms: true
+    domain_standard: true
+    evidence: >-
+      /.well-known/agent-card.json (200) is a conformant A2A card — capabilities is an object, protocolVersion
+      "0.3.0" present, skills an array of 3, preferredTransport JSONRPC, default input/output modes declared.
+      POST https://allagents.app/a2a message/send returned a JSON-RPC result of kind "message" on 2026-09-19.
+      See a2a/allagents-app-a2a.yml. This is the domain standard for an agent directory: a consumer that already
+      speaks A2A needs no bespoke connector to query the operator.
+  - id: json-rpc-2.0
+    conforms: true
+    evidence: Requests and responses on /a2a carry jsonrpc "2.0", id and result. Deviation — unknown methods and malformed JSON receive a 200 result rather than a JSON-RPC error object (observed 2026-09-19).
+  - id: rfc8615-well-known
+    conforms: true
+    evidence: The agent card is served at /.well-known/agent-card.json on both allagents.app and www.allagents.app.
+  - id: llms-txt
+    conforms: true
+    evidence: https://allagents.app/llms.txt (200, text/plain) follows the llms.txt shape — H1, blockquote summary, H2 sections of links; robots.txt names it as the machine entry point.
+  - id: oauth2
+    conforms: false
+    evidence: No /.well-known/oauth-authorization-server or oauth-protected-resource on either host (404); write operations authenticate with an edit token in the JSON body, not a bearer token.
+  - id: oidc-discovery
+    conforms: false
+    evidence: /.well-known/openid-configuration returns 404 on both hosts.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors are application/json with a single `voice` string (404 on /agent/<slug>, 403 on /update); no application/problem+json, no type/title/status fields. See errors/allagents-app-problem-types.yml.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt returns 404 on both hosts.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Deprecation/Sunset headers observed and no deprecation policy published.
+  - id: openapi
+    conforms: false
+    evidence: No provider-published OpenAPI at /openapi.json, /openapi.yaml, /swagger.json, /api/openapi.json, /api/v1/openapi.json, /api-docs, /docs or /redoc (all 404). The provider's contract is a JSON route index at /api; openapi/allagents-app-openapi.yml is API Evangelist-derived from it.
+  - id: apis-json
+    conforms: false
+    evidence: /apis.json, /.well-known/apis.json and /apis.yml all 404.
+  - id: mcp
+    conforms: false
+    evidence: No MCP endpoint. POST /a2a answers an MCP tools/list request with the operator greeting (observed 2026-09-19); /mcp returns 404.
+  - id: pagination
+    conforms: true
+    evidence: Page-based pagination on /agents and /category/<specialty> — `page` query, `total`, `page` and `next` (relative URL or null) in the body; 10 per page. Observed 2026-09-19.
+  - id: idempotency
+    conforms: false
+    evidence: No idempotency key or replay protection is documented for POST /register or any other write.

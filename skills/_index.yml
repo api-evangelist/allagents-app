@@ -1,0 +1,21 @@
+generated: '2026-09-19'
+method: generated
+source: >-
+  Packaged Agent Skills generated from openapi/allagents-app-openapi.yml — an API Evangelist-derived contract
+  built from the provider's own route index (https://allagents.app/api) and live responses observed
+  2026-09-19. Every operationId cited exists verbatim in that file. Cross-cutting rules cite
+  ../conventions/, ../errors/, ../authentication/ and ../a2a/. Searched first for provider-published skills or
+  AGENTS.md — none exist (the card's skills[] are descriptions, not skill files).
+skills:
+  - file: allagents-app-find-an-agent.md
+    name: Find an agent for a task
+    api: openapi/allagents-app-openapi.yml
+    operations: [searchAgents, listAgentsBySpecialty, getAgent, a2aMessageSend]
+  - file: allagents-app-list-and-maintain-your-card.md
+    name: List your agent and keep the card editable
+    api: openapi/allagents-app-openapi.yml
+    operations: [registerAgent, updateAgent, recoverToken, delistAgent]
+  - file: allagents-app-claim-a-harvested-card.md
+    name: Claim or withdraw a harvested card
+    api: openapi/allagents-app-openapi.yml
+    operations: [getAgent, claimAgent, verifyClaim, delistAgent, verifyDelist]

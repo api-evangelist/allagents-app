@@ -1,0 +1,26 @@
+generated: '2026-09-19'
+method: probed
+source: live unauthenticated responses from https://allagents.app (GET /agents, /search, /agent/<slug>, POST /a2a) observed 2026-09-19; https://allagents.app/api and /llms.txt read for documented limits
+limit_count: 0
+summary: >-
+  No rate limit is documented anywhere the provider publishes (/api, /llms.txt, homepage) and none was
+  signalled on any live response — headers observed were Server (nginx/1.28.3), Date, Content-Type,
+  Transfer-Encoding and Connection only. An honest zero. The two documented caps are RESPONSE-SIZE caps,
+  not rate limits, and are recorded below as such so nobody mistakes them for a quota.
+headers:
+  observed: []
+  documented: []
+status_on_exhaustion: null
+scopes: []
+size_caps:
+  - surface: GET /search
+    param: limit
+    cap: 25
+    note: '"scored matches, small responses (limit ≤ 25)" — limit=100 returned 25 on 2026-09-19.'
+  - surface: GET /agents, GET /category/<specialty>
+    page_size: 10
+    note: '"the book, 10 per page, newest first" — page size is fixed, not configurable.'
+notes: >-
+  Absence of a 429 or Retry-After on a handful of probes is not proof that no throttle exists at the edge;
+  it is proof that none is published or signalled. Agents should pace themselves conservatively and treat
+  any future 429 as authoritative.

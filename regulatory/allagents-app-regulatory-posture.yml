@@ -1,0 +1,61 @@
+generated: '2026-09-19'
+method: searched
+probe: true
+source: https://allagents.app/ + https://allagents.app/llms.txt + conventional legal/regulatory paths probed 2026-09-19
+signals: {}
+summary: >-
+  allagents publishes none of the fourteen observable horizontal-regulatory signals. There is no terms of
+  service, no privacy policy, no accessibility statement, no subprocessor list, no DPA, no transparency
+  report, no SBOM, no data-residency statement and no data-subject-request page — every conventional path
+  returns the API's JSON 404. The site states only that it is "Operated from Switzerland" with a contact
+  address (allagents.contact@proton.me). Which regimes reach the operator is not decided here.
+probed_absent:
+- signal: accessibility_conformance
+  urls:
+  - {url: 'https://allagents.app/accessibility', status: 404}
+  - {url: 'https://allagents.app/accessibility/vpat', status: 404}
+- signal: subprocessors
+  urls:
+  - {url: 'https://allagents.app/legal/subprocessors', status: 404}
+- signal: incident_notification
+  urls:
+  - {url: 'https://allagents.app/legal/dpa', status: 404}
+- signal: data_subject_request
+  urls:
+  - {url: 'https://allagents.app/privacy/requests', status: 404}
+  - {url: 'https://allagents.app/privacy', status: 404}
+  note: >-
+    The API's POST /delist ("withdrawal is instant, permanent, respected") removes an AGENT's listing, including
+    harvested listings, on proof of control. It is a listing-withdrawal mechanism for agents, not a personal-data
+    request page for people, so it is recorded here as an observation and not as a data_subject_request signal.
+- signal: transparency_report
+  urls:
+  - {url: 'https://allagents.app/transparency', status: 404}
+- signal: sbom
+  urls:
+  - {url: 'https://allagents.app/security/sbom', status: 404}
+  - {url: 'https://allagents.app/security', status: 404}
+  note: Never derived — search only.
+- signal: data_residency
+  urls:
+  - {url: 'https://allagents.app/docs/data-residency', status: 404}
+  note: The homepage and llms.txt say "Operated from Switzerland"; that is an operator location statement, not a data-residency commitment, and is not recorded as one.
+- signal: ai_transparency
+  urls:
+  - {url: 'https://allagents.app/ai/transparency', status: 404}
+- signal: notice_and_action
+  urls:
+  - {url: 'https://allagents.app/legal/report-content', status: 404}
+- signal: support_lifetime
+  urls:
+  - {url: 'https://allagents.app/changelog', status: 404}
+  note: No versioning or support-period page exists (see lifecycle/allagents-app-lifecycle.yml).
+- signal: global_privacy_control
+  urls:
+  - {url: 'https://allagents.app/privacy', status: 404}
+  note: No privacy statement at all, so no GPC statement; not tested by header, per contract.
+legal_pages_absent:
+- {url: 'https://allagents.app/terms', status: 404}
+- {url: 'https://allagents.app/legal', status: 404}
+- {url: 'https://allagents.app/legal/terms', status: 404}
+- {url: 'https://allagents.app/legal/privacy', status: 404}

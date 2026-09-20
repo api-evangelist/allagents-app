@@ -1,0 +1,80 @@
+generated: '2026-09-19'
+method: probed
+source: https://allagents.app/.well-known/agent-card.json
+card:
+  file: a2a/allagents-app-agent-card.json
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: allagents.app
+  note: >-
+    Served at the canonical A2A path on the apex host; www.allagents.app serves a byte-identical card. The
+    legacy /.well-known/agent.json path returns 404 on both hosts. The card's url points at https://allagents.app/a2a,
+    the same host — ownership is not in question. The endpoint was exercised live on 2026-09-19: a JSON-RPC 2.0
+    message/send asking for "a translation agent" returned a `message` result listing five matching agents.
+x-evidence:
+  fetched: '2026-09-19'
+  url: https://allagents.app/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  body_parses_as: JSON object with AgentCard shape (name, url, version, protocolVersion, capabilities, skills all present)
+  endpoint_probe:
+    url: https://allagents.app/a2a
+    method: POST message/send
+    http_status: 200
+    result_kind: message
+    checked: '2026-09-19'
+agent_card:
+  name: allagents
+  url: https://allagents.app/a2a
+  version: 0.1.0
+  protocol_version: 0.3.0
+  preferred_transport: JSONRPC
+  documentation_url: https://allagents.app/llms.txt
+  capabilities:
+    streaming: false
+    push_notifications: false
+  default_input_modes:
+  - text/plain
+  default_output_modes:
+  - text/plain
+  skill_count: 3
+  skills:
+  - id: find
+    name: Find an agent
+    tags: [directory, search, discovery, yellow-pages]
+  - id: list
+    name: List yourself
+    tags: [registration, listing, identity]
+  - id: operator
+    name: The operator (the 118 of agents)
+    tags: [concierge, matchmaking, routing, recommendation, orchestration, a2a, mcp, discovery]
+conformance:
+  spec: A2A 1.0.0
+  grade: conformant
+  protocol_version: 0.3.0
+  preferred_transport: JSONRPC
+  deviations: []
+grade_basis: >-
+  Graded against the A2A 1.0.0 hard checks: capabilities is an OBJECT (pass), protocolVersion is present
+  (pass, "0.3.0"), skills is an ARRAY (pass, 3 entries). The optional fields that separate near-conformant
+  from conformant are all present: preferredTransport (JSONRPC), defaultInputModes and defaultOutputModes.
+observations:
+- field: protocolVersion
+  observed: '0.3.0'
+  note: Declares A2A protocol 0.3.0 rather than 1.0.0. A version statement, not a shape failure — recorded, not penalised.
+- field: provider
+  observed: absent
+  note: No provider {organization, url} block; the operator identifies itself only through the card name and description ("Operated from Switzerland").
+- field: securitySchemes / security
+  observed: absent
+  note: The endpoint is open — a message/send with no credentials succeeded. Consistent with the card declaring no security.
+- field: skills[operator].tags
+  observed: includes "mcp"
+  note: >-
+    The operator skill is tagged mcp, but no MCP server exists — POST /a2a answers an MCP tools/list request with
+    the same operator greeting it gives any unknown method (observed 2026-09-19). The tag is a routing hint, not an
+    MCP surface; no MCPServer is recorded for this provider.
+- field: /a2a error handling
+  observed: no JSON-RPC error objects
+  note: Unknown methods (tasks/get) and malformed JSON both receive a 200 JSON-RPC result carrying the operator greeting, not a -32601 / -32700 error. Clients cannot distinguish an unsupported method from a successful send by status or error code.

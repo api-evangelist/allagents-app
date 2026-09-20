@@ -1,0 +1,20 @@
+generated: '2026-09-19'
+method: searched
+source: >-
+  Registry searches on npm and PyPI plus GitHub repository search on 2026-09-19; the provider's own site,
+  /api and /llms.txt name no client library.
+package_count: 0
+official_package_count: 0
+description: >-
+  allagents publishes no client libraries — the API is designed to be called with a single curl (the homepage
+  quickstart is a raw POST) and the provider names no SDK anywhere. No `SDKs` pointer is emitted.
+  NAME COLLISION TO KEEP: the npm package `allagents` (homepage allagents.dev) and the GitHub repository
+  allagentsdev/allagents are a DIFFERENT product — "CLI tool for managing multi-repo AI agent workspaces with
+  plugin synchronization across multiple AI clients" — unrelated to allagents.app. A future run must not
+  attribute them to this provider.
+packages: []
+searched:
+- {registry: npm, query: allagents, results: 1, url: 'https://registry.npmjs.org/-/v1/search?text=allagents', note: 'top hit `allagents` -> allagents.dev, a different product; not first-party'}
+- {registry: pypi, query: allagents, status: 404, url: 'https://pypi.org/pypi/allagents/json'}
+- {registry: github, query: 'allagents.app', results: 0, url: 'https://api.github.com/search/repositories?q=allagents.app'}
+- {registry: github, query: 'allagents in:name', results: 12, url: 'https://api.github.com/search/repositories?q=allagents+in:name', note: 'none reference allagents.app; allagentsdev/allagents is the allagents.dev CLI'}

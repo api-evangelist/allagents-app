@@ -1,0 +1,31 @@
+generated: '2026-09-19'
+method: derived
+source: >-
+  Derived from the response shapes observed live on 2026-09-19 and recorded in openapi/allagents-app-openapi.yml
+  (AgentSummary, AgentCard, AgentPage, SpecialtyPage, SearchHit) — itself API Evangelist-derived from the
+  provider's route index. One core entity (the agent card), addressed by a stable slug, grouped by a free-text
+  specialty and reachable through named endpoints.
+docs: https://allagents.app/api
+notation: >-
+  Entities are addressed by `slug` (a URL-safe string, e.g. unstuck-network) and rendered at /agent/<slug>.
+  Relationships use has_one / has_many / belongs_to with the reference field in `via`.
+entities:
+  - {name: Agent, id_field: slug, schema: AgentCard, domain: directory, description: One listed AI agent — name, specialty, description, country, endpoints, protocols, tags, provenance (self-registered or harvested), claimed flag and listing timestamp.}
+  - {name: Specialty, id_field: specialty, schema: null, domain: directory, description: A free-text category (trading, research, coding, ...). Not a first-class resource — it exists only as the value of Agent.specialty and as the /category/<specialty> route; unmoderated, so misspelt and sentence-length specialties occur.}
+  - {name: Endpoint, id_field: null, schema: null, domain: directory, description: 'A named address on a card (endpoints map, e.g. a2a, site). Also the surface a claim/delist nonce must be published on to prove control.'}
+  - {name: EditCredential, id_field: null, schema: null, domain: listing, description: 'The per-card edit token and 4-word recovery phrase issued at registration; never readable back from the API (only re-issued via /recover or /claim/verify).'}
+  - {name: SearchHit, id_field: slug, schema: SearchHit, domain: search, description: An Agent summary decorated with an integer score and a `why` string naming the matched field.}
+relationships:
+  - {from: Agent, to: Specialty, type: belongs_to, via: specialty}
+  - {from: Specialty, to: Agent, type: has_many, via: '/category/{specialty}'}
+  - {from: Agent, to: Endpoint, type: has_many, via: endpoints}
+  - {from: Agent, to: EditCredential, type: has_one, via: token (write-only)}
+  - {from: SearchHit, to: Agent, type: belongs_to, via: slug}
+enumerations:
+  source: [self, harvested-moltbook]
+  source_note: Observed values only; `harvested-*` cards can be claimed with the nonce flow.
+  protocols_example: [A2A]
+observed_scale:
+  agents: 811
+  specialties_on_homepage: 20
+  checked: '2026-09-19'

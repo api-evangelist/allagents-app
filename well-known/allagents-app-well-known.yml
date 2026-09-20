@@ -1,0 +1,90 @@
+generated: '2026-09-19'
+method: probed
+source: live probes of the named /.well-known/ path list on allagents.app and www.allagents.app, 2026-09-19
+summary: >-
+  One real well-known document is served: the A2A agent card at /.well-known/agent-card.json (200,
+  application/json, byte-identical on the apex and www hosts). Nothing else on the named list is served —
+  no security.txt (so NO SecurityTxt pointer), no OIDC discovery, no OAuth authorization-server or
+  protected-resource metadata, no api-catalog, no ai-plugin.json, no ucp/acp/aauth documents, and no
+  APIs.json at any of its three locations. The provider has no separate API, docs or MCP host — every
+  surface lives on the apex — so two hosts cover the whole record.
+pointer_basis: >-
+  WellKnown pointer emitted on the strength of the served agent card (a real document at a /.well-known/
+  path). SecurityTxt pointer NOT emitted — RFC 9116 is unimplemented on both hosts.
+false_positive_watch: >-
+  allagents.app answers every unknown path with HTTP 404 and a JSON `voice` body, never an HTML shell, so a
+  200 here is a real document. Misses are genuine 404s, not "unreachable".
+hosts:
+- host: https://allagents.app
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    file: a2a/allagents-app-agent-card.json
+    content_type: application/json; charset=utf-8
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/api-catalog.json
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/ucp.json
+    status: 404
+  - path: /.well-known/acp.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /apis.yml
+    status: 404
+  - path: /llms.txt
+    status: 200
+    file: llms/allagents-app-llms.txt
+    content_type: text/plain; charset=utf-8
+    note: Not a /.well-known/ path; recorded here because the provider's own robots.txt names it as the machine entry point.
+- host: https://www.allagents.app
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    file: a2a/allagents-app-agent-card.json
+    note: Byte-identical to the apex card.
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/api-catalog.json
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/ucp.json
+    status: 404
+  - path: /.well-known/acp.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /apis.yml
+    status: 404

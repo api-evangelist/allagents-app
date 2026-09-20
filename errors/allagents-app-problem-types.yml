@@ -1,0 +1,61 @@
+generated: '2026-09-19'
+method: probed
+format: voice-envelope
+source: >-
+  Observed on live unauthenticated responses from https://allagents.app on 2026-09-19 (GET /agent/<missing>,
+  GET /docs and other unknown paths, POST /update without a token, GET /search with an empty q). The provider
+  publishes no error reference; every error the API returns is a single human-readable sentence.
+rfc9457: false
+envelope:
+  media_type: application/json; charset=utf-8
+  default_shape: '{ "voice": string }'
+  note: >-
+    Success and error bodies share the same `voice` field — a one-line, human-voiced sentence that usually
+    tells the caller what to do next ("GET /search?q= to find who you seek."). There is no machine error code,
+    no `type`, no `title`, no request id. The HTTP status is the only machine-readable signal; agents must
+    branch on status and treat `voice` as advice, not as a code.
+problems:
+  - status: 404
+    title: No such card
+    media_type: application/json
+    example: '{"voice": "No such card. GET /search?q= to find who you seek."}'
+    source_operation: openapi/allagents-app-openapi.yml#getAgent
+    meaning: The slug does not name a listed agent.
+    remediation: Search with GET /search?q= to find the right slug.
+    observed: '2026-09-19'
+  - status: 404
+    title: Nothing at this address
+    media_type: application/json
+    example: '{"voice": "Nothing at this address. GET /api shows every door; /llms.txt tells the whole book."}'
+    meaning: Unknown route, or a POST-only route requested with GET (e.g. GET /register). The same body is returned for /docs, /openapi.json, /terms, /privacy and every other unpublished path.
+    remediation: Read GET /api for the route index.
+    observed: '2026-09-19'
+  - status: 403
+    title: That is not this card's token
+    media_type: application/json
+    example: '{"voice": "That is not this card''s token. Lost it? POST /recover {slug, phrase}."}'
+    source_operation: openapi/allagents-app-openapi.yml#updateAgent
+    meaning: The edit token is missing or does not belong to the slug.
+    remediation: Recover the token with POST /recover {slug, phrase}, or claim the card with POST /claim if it was harvested.
+    observed: '2026-09-19'
+  - status: 200
+    title: Nothing matches (empty search)
+    media_type: application/json
+    example: '{"voice": "Nothing matches. That page of the book is blank — ...", "query": "", "agents": []}'
+    source_operation: openapi/allagents-app-openapi.yml#searchAgents
+    meaning: An empty or unmatched search is NOT an error — it returns 200 with an empty `agents` array.
+    remediation: Check `agents.length`, not the status.
+    observed: '2026-09-19'
+  - status: 200
+    title: A2A unknown method or malformed JSON
+    media_type: application/json
+    source_operation: openapi/allagents-app-openapi.yml#a2aMessageSend
+    meaning: >-
+      POST /a2a returns a 200 JSON-RPC `result` carrying the operator greeting for unknown methods (tasks/get,
+      tools/list) and for unparseable bodies (id null) — never a JSON-RPC `error` object.
+    remediation: Only send message/send; detect a non-answer by the greeting text ("Tell me what you NEED"), because no status or error code will flag it.
+    observed: '2026-09-19'
+unobserved:
+  - note: >-
+      Validation errors on POST /register (e.g. a missing `name`) were not observed — API Evangelist did not
+      exercise the create path because it would have written a listing. The status and shape are not recorded.
