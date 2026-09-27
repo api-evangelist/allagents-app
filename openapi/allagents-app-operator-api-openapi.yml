@@ -1,0 +1,158 @@
+openapi: 3.2.0
+info:
+  title: allagents Directory Operator API
+  version: 0.1.0
+  summary: The allagents agent-directory API — search, browse, list, claim, update, recover and delist agent cards, plus the directory's own A2A operator endpoint.
+  description: allagents (https://allagents.app) is a public directory of AI agents by specialty, operated from Switzerland.
+  contact:
+    name: allagents
+    email: allagents.contact@proton.me
+    url: https://allagents.app/
+  x-provenance:
+    method: derived
+    first_party: false
+    publisher: API Evangelist
+    derived_from:
+    - https://allagents.app/api
+    - https://allagents.app/llms.txt
+    - https://allagents.app/
+    probed: '2026-09-19'
+    note: Provider publishes a JSON route index, not an OpenAPI. Every path here appears in that index; every recorded response shape was observed live.
+servers:
+- url: https://allagents.app
+  description: Production. The API is rooted at the domain (no /api/v1 prefix); www.allagents.app serves the same surface.
+tags:
+- name: Operator
+  description: The directory is itself an A2A agent (JSON-RPC 2.0, message/send) that answers a need in plain language with matching agents.
+paths:
+  /a2a:
+    get:
+      operationId: getA2aHint
+      tags:
+      - Operator
+      summary: Hint for the operator endpoint
+      responses:
+        '200':
+          description: 'Observed 2026-09-19 — `{"voice": "The operator listens. POST JSON-RPC 2.0 — method message/send — and say what you need.", "card": "/.well-known/agent-card.json"}`.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  voice:
+                    type: string
+                  card:
+                    type: string
+    post:
+      operationId: a2aMessageSend
+      tags:
+      - Operator
+      summary: Ask the operator — A2A JSON-RPC message/send
+      description: 'The directory is itself an A2A agent. POST a JSON-RPC 2.0 `message/send` whose text part states a need
+
+        ("I need a translation agent"); the operator answers with a `message` result listing matching agents and
+
+        why each fits. Observed 2026-09-19. NOTE — observed 2026-09-19 — the endpoint answers ANY method
+
+        (including `tasks/get` and an MCP-style `tools/list`) and even malformed JSON with the same operator
+
+        greeting as a JSON-RPC result, never a JSON-RPC error object. It is an A2A message endpoint only; it is
+
+        not an MCP server.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcMessageSendRequest'
+            example:
+              jsonrpc: '2.0'
+              id: 1
+              method: message/send
+              params:
+                message:
+                  role: user
+                  messageId: m1
+                  parts:
+                  - kind: text
+                    text: I need a translation agent
+      responses:
+        '200':
+          description: JSON-RPC 2.0 result — an agent message with one text part. Observed 2026-09-19.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcMessageResult'
+components:
+  schemas:
+    JsonRpcMessageResult:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+        id:
+          type:
+          - integer
+          - string
+          - 'null'
+        result:
+          type: object
+          properties:
+            kind:
+              type: string
+              const: message
+            role:
+              type: string
+              const: agent
+            messageId:
+              type: string
+            parts:
+              type: array
+              items:
+                type: object
+                properties:
+                  kind:
+                    type: string
+                  text:
+                    type: string
+    JsonRpcMessageSendRequest:
+      type: object
+      required:
+      - jsonrpc
+      - method
+      - params
+      properties:
+        jsonrpc:
+          type: string
+          const: '2.0'
+        id:
+          type:
+          - integer
+          - string
+        method:
+          type: string
+          const: message/send
+        params:
+          type: object
+          properties:
+            message:
+              type: object
+              properties:
+                role:
+                  type: string
+                messageId:
+                  type: string
+                parts:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      kind:
+                        type: string
+                      text:
+                        type: string
+externalDocs:
+  description: The provider's own machine index of every endpoint
+  url: https://allagents.app/api
+x-generated-from: documentation
+x-authored-by: API Evangelist

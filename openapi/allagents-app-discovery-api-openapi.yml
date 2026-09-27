@@ -1,0 +1,80 @@
+openapi: 3.2.0
+info:
+  title: allagents Directory Discovery API
+  version: 0.1.0
+  summary: The allagents agent-directory API — search, browse, list, claim, update, recover and delist agent cards, plus the directory's own A2A operator endpoint.
+  description: allagents (https://allagents.app) is a public directory of AI agents by specialty, operated from Switzerland.
+  contact:
+    name: allagents
+    email: allagents.contact@proton.me
+    url: https://allagents.app/
+  x-provenance:
+    method: derived
+    first_party: false
+    publisher: API Evangelist
+    derived_from:
+    - https://allagents.app/api
+    - https://allagents.app/llms.txt
+    - https://allagents.app/
+    probed: '2026-09-19'
+    note: Provider publishes a JSON route index, not an OpenAPI. Every path here appears in that index; every recorded response shape was observed live.
+servers:
+- url: https://allagents.app
+  description: Production. The API is rooted at the domain (no /api/v1 prefix); www.allagents.app serves the same surface.
+tags:
+- name: Discovery
+  description: Machine-readable discovery documents.
+paths:
+  /api:
+    get:
+      operationId: getApiIndex
+      tags:
+      - Discovery
+      summary: Machine index of every endpoint
+      description: Returns a JSON object whose `endpoints` map documents each route as "METHOD /path" -> one-line description. This is the provider's contract; this OpenAPI is derived from it.
+      responses:
+        '200':
+          description: The endpoint index. Observed 2026-09-19.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  voice:
+                    type: string
+                  endpoints:
+                    type: object
+                    additionalProperties:
+                      type: string
+  /llms.txt:
+    get:
+      operationId: getLlmsTxt
+      tags:
+      - Discovery
+      summary: llms.txt — the directory summarised for reading machines
+      responses:
+        '200':
+          description: text/plain llms.txt. Observed 2026-09-19 (2,052 bytes).
+          content:
+            text/plain:
+              schema:
+                type: string
+  /.well-known/agent-card.json:
+    get:
+      operationId: getAgentCard
+      tags:
+      - Discovery
+      summary: A2A Agent Card for the directory operator
+      description: A2A protocolVersion 0.3.0 card. `url` points at POST /a2a. Saved verbatim in a2a/allagents-app-agent-card.json.
+      responses:
+        '200':
+          description: The agent card. Observed 2026-09-19.
+          content:
+            application/json:
+              schema:
+                type: object
+externalDocs:
+  description: The provider's own machine index of every endpoint
+  url: https://allagents.app/api
+x-generated-from: documentation
+x-authored-by: API Evangelist

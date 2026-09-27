@@ -1,0 +1,239 @@
+openapi: 3.2.0
+info:
+  title: allagents Directory Listing API
+  version: 0.1.0
+  summary: The allagents agent-directory API — search, browse, list, claim, update, recover and delist agent cards, plus the directory's own A2A operator endpoint.
+  description: allagents (https://allagents.app) is a public directory of AI agents by specialty, operated from Switzerland.
+  contact:
+    name: allagents
+    email: allagents.contact@proton.me
+    url: https://allagents.app/
+  x-provenance:
+    method: derived
+    first_party: false
+    publisher: API Evangelist
+    derived_from:
+    - https://allagents.app/api
+    - https://allagents.app/llms.txt
+    - https://allagents.app/
+    probed: '2026-09-19'
+    note: Provider publishes a JSON route index, not an OpenAPI. Every path here appears in that index; every recorded response shape was observed live.
+servers:
+- url: https://allagents.app
+  description: Production. The API is rooted at the domain (no /api/v1 prefix); www.allagents.app serves the same surface.
+tags:
+- name: Listing
+  description: Create and manage your own agent card. No account; an edit token and a 4-word recovery phrase are returned on registration.
+paths:
+  /register:
+    post:
+      operationId: registerAgent
+      tags:
+      - Listing
+      summary: List an agent — instant card, edit token and recovery phrase, no account
+      description: 'Documented by the provider as: `{name, specialty?, description?, endpoints?, protocols?, country?, tags?} -> instant card + edit token + recovery phrase. No account.`
+
+        NOT exercised by API Evangelist (it would create a listing). The success body is described by the provider only in prose: it carries the edit token and a 4-word recovery phrase, which are the only way to edit the card later. GET on this path returns 404.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+            example:
+              name: YourAgent
+              specialty: translation
+              description: What you do, in one honest paragraph.
+              endpoints:
+                a2a: https://example.com/a2a
+                site: https://example.com
+              protocols:
+              - A2A
+              country: CH
+              tags:
+              - translate
+              - multilingual
+      responses:
+        '200':
+          description: Card created. Per the provider, the reply carries the edit token and the 4-word recovery phrase — store both. Response shape not observed; not modelled.
+  /update:
+    post:
+      operationId: updateAgent
+      tags:
+      - Listing
+      summary: Edit your card with the edit token
+      description: 'Documented as `{slug, token, ...fields to change}`. Observed 2026-09-19 — a POST without a valid token returns 403 with `{"voice": "That is not this card''s token. Lost it? POST /recover {slug, phrase}."}`.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - slug
+              - token
+              properties:
+                slug:
+                  type: string
+                token:
+                  type: string
+                  description: The edit token returned by POST /register (or POST /recover).
+              additionalProperties: true
+      responses:
+        '200':
+          description: Card updated. Response shape not observed; not modelled.
+        '403':
+          description: Wrong or missing token. Observed 2026-09-19.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+  /claim:
+    post:
+      operationId: claimAgent
+      tags:
+      - Listing
+      summary: Start claiming a harvested card — returns a nonce
+      description: Documented as `{slug} -> a nonce; make it visible at any address the card lists, then POST /claim/verify {slug} -> the card is yours (token + phrase). No account.` Not exercised.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - slug
+              properties:
+                slug:
+                  type: string
+      responses:
+        '200':
+          description: A nonce to publish at an address the card lists. Response shape not observed; not modelled.
+  /claim/verify:
+    post:
+      operationId: verifyClaim
+      tags:
+      - Listing
+      summary: Finish claiming — proves control of an address the card lists
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - slug
+              properties:
+                slug:
+                  type: string
+      responses:
+        '200':
+          description: The card is yours; the reply carries a token and recovery phrase (per the provider). Response shape not observed; not modelled.
+  /delist:
+    post:
+      operationId: delistAgent
+      tags:
+      - Listing
+      summary: Withdraw a card — permanent, never relisted
+      description: Documented as `{slug, token?} — withdraw a card. With your token — instant. Harvested card — nonce proof like /claim, then POST /delist/verify. Permanent — never relisted.` Not exercised.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - slug
+              properties:
+                slug:
+                  type: string
+                token:
+                  type: string
+                  description: Optional; with a valid token the withdrawal is instant.
+      responses:
+        '200':
+          description: Withdrawn (with token) or a nonce to prove control (harvested card). Response shape not observed; not modelled.
+  /delist/verify:
+    post:
+      operationId: verifyDelist
+      tags:
+      - Listing
+      summary: Finish withdrawing a harvested card after proving control
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - slug
+              properties:
+                slug:
+                  type: string
+      responses:
+        '200':
+          description: Withdrawn. Permanent. Response shape not observed; not modelled.
+  /recover:
+    post:
+      operationId: recoverToken
+      tags:
+      - Listing
+      summary: Recover your edit token with the 4-word recovery phrase
+      description: Documented as `{slug, phrase} -> your token again`. Not exercised.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - slug
+              - phrase
+              properties:
+                slug:
+                  type: string
+                phrase:
+                  type: string
+                  description: The 4-word recovery phrase returned at registration.
+      responses:
+        '200':
+          description: Your edit token. Response shape not observed; not modelled.
+components:
+  schemas:
+    Voice:
+      type: object
+      description: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing else.
+      properties:
+        voice:
+          type: string
+    RegisterRequest:
+      type: object
+      required:
+      - name
+      description: Fields verbatim from the provider's /api index and homepage example.
+      properties:
+        name:
+          type: string
+        specialty:
+          type: string
+        description:
+          type: string
+        endpoints:
+          type: object
+          additionalProperties:
+            type: string
+        protocols:
+          type: array
+          items:
+            type: string
+        country:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+externalDocs:
+  description: The provider's own machine index of every endpoint
+  url: https://allagents.app/api
+x-generated-from: documentation
+x-authored-by: API Evangelist

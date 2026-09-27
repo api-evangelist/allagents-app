@@ -38,44 +38,11 @@ tags_raw:
 - Registry
 - Switzerland
 apis:
-- name: allagents Directory API
-  description: >-
-    Search, browse and read agent cards, and manage your own — register, update, claim a harvested card,
-    recover a lost token, delist. JSON over HTTPS rooted at the domain, documented by the provider in a
-    machine index at GET /api. Reads are anonymous; writes carry a per-card edit token in the body.
-  image: https://allagents.app/logo.png
-  humanURL: https://allagents.app/api
-  baseURL: https://allagents.app
-  tags:
-  - AI Agents
-  - Directory
-  - Search
-  - Registry
-  - Discovery
-  tags_raw:
-  - AI Agents
-  - directory
-  - search
-  - registry
-  - discovery
-  properties:
-  - type: OpenAPI
-    url: openapi/allagents-app-openapi.yml
-    name: OpenAPI (API Evangelist-derived from the provider's /api route index; not first-party)
-  - type: Documentation
-    url: https://allagents.app/api
-  - type: Overlay
-    url: overlays/allagents-app-directory-overlay.yaml
-  - type: MCPServer
-    url: mcp/allagents-app-mcp.yml
-    name: MCP candidate only (deployment mode none — the provider ships no MCP server)
-  - type: DataModel
-    url: data-model/allagents-app-data-model.yml
 - name: allagents Operator (A2A Agent)
   description: >-
     The directory as an A2A agent. POST a JSON-RPC 2.0 message/send stating a need ("I need a translation
-    agent") and the operator answers with ranked matching agents and a card link for each. Discovered through
-    a conformant A2A 0.3.0 agent card at /.well-known/agent-card.json; no credentials required.
+    agent") and the operator answers with ranked matching agents and a card link for each. Discovered
+    through a conformant A2A 0.3.0 agent card at /.well-known/agent-card.json; no credentials required.
   image: https://allagents.app/logo.png
   humanURL: https://allagents.app/.well-known/agent-card.json
   baseURL: https://allagents.app/a2a
@@ -94,12 +61,76 @@ apis:
   properties:
   - type: Documentation
     url: https://allagents.app/llms.txt
+- aid: allagents-app:allagents-app-directory-api
+  name: allagents Directory API
+  description: Read the book — search, browse by page, browse by specialty, read one card.
+  humanURL: https://allagents.app/api
+  baseURL: https://allagents.app/a2a
+  tags:
+  - Directory
+  properties:
+  - type: OpenAPI
+    url: openapi/allagents-app-directory-api-openapi.yml
+  - type: Documentation
+    url: https://allagents.app/api
+  - type: DataModel
+    url: data-model/allagents-app-data-model.yml
+- aid: allagents-app:allagents-app-discovery-api
+  name: allagents Discovery API
+  description: Machine-readable discovery documents.
+  humanURL: https://allagents.app/api
+  baseURL: https://allagents.app/a2a
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/allagents-app-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://allagents.app/api
+  - type: DataModel
+    url: data-model/allagents-app-data-model.yml
+- aid: allagents-app:allagents-app-listing-api
+  name: allagents Listing API
+  description: >-
+    Create and manage your own agent card. No account; an edit token and a 4-word recovery phrase are
+    returned on registration.
+  humanURL: https://allagents.app/api
+  baseURL: https://allagents.app/a2a
+  tags:
+  - Listing
+  properties:
+  - type: OpenAPI
+    url: openapi/allagents-app-listing-api-openapi.yml
+  - type: Documentation
+    url: https://allagents.app/api
+  - type: DataModel
+    url: data-model/allagents-app-data-model.yml
+- aid: allagents-app:allagents-app-operator-api
+  name: allagents Operator API
+  description: >-
+    The directory is itself an A2A agent (JSON-RPC 2.0, message/send) that answers a need in plain language
+    with matching agents.
+  humanURL: https://allagents.app/api
+  baseURL: https://allagents.app/a2a
+  tags:
+  - Operator
+  properties:
+  - type: OpenAPI
+    url: openapi/allagents-app-operator-api-openapi.yml
+  - type: Documentation
+    url: https://allagents.app/api
+  - type: DataModel
+    url: data-model/allagents-app-data-model.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/allagents-app-directory-overlay.yaml
+- type: MCPServer
+  url: mcp/allagents-app-mcp.yml
 - type: Website
   url: https://allagents.app/
 - type: Documentation
@@ -148,3 +179,10 @@ x-enrichment:
   status: enriched
   artifacts_added: 22
   pass: local-v3
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://allagents.app/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "0.3.0"
+  control: 404

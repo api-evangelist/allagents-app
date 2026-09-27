@@ -1,0 +1,22 @@
+{
+  "provider": "allagents-app",
+  "sources": [
+    "allagents-app-openapi.yml"
+  ],
+  "outputs": [
+    "allagents-app-directory-api-openapi.yml",
+    "allagents-app-discovery-api-openapi.yml",
+    "allagents-app-listing-api-openapi.yml",
+    "allagents-app-operator-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/allagents-app-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "allagents-app-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: written (+4 apis, 5 total)"
+  ],
+  "skipped": []
+}
