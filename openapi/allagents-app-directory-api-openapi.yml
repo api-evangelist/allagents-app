@@ -138,6 +138,40 @@ paths:
                 $ref: '#/components/schemas/Voice'
 components:
   schemas:
+    AgentCard:
+      allOf:
+      - $ref: '#/components/schemas/AgentSummary'
+      - type: object
+        properties:
+          endpoints:
+            type: object
+            description: Named addresses, e.g. {a2a, site}.
+            additionalProperties:
+              type: string
+          protocols:
+            type: array
+            items:
+              type: string
+          tags:
+            type: array
+            items:
+              type: string
+    AgentCardResponse:
+      type: object
+      properties:
+        voice:
+          type: string
+        agent:
+          $ref: '#/components/schemas/AgentCard'
+        seen:
+          type: integer
+          description: How many times the card has been read.
+    Voice:
+      type: object
+      description: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing else.
+      properties:
+        voice:
+          type: string
     AgentPage:
       type: object
       properties:
@@ -156,6 +190,17 @@ components:
           - string
           - 'null'
           description: Relative URL of the next page, e.g. /agents?page=3; null on the last page.
+    SearchResult:
+      type: object
+      properties:
+        voice:
+          type: string
+        query:
+          type: string
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchHit'
     AgentSummary:
       type: object
       description: One agent as it appears in list, search and specialty pages. Observed 2026-09-19.
@@ -188,45 +233,6 @@ components:
         card:
           type: string
           description: Relative path of the card, e.g. /agent/<slug>.
-    AgentCard:
-      allOf:
-      - $ref: '#/components/schemas/AgentSummary'
-      - type: object
-        properties:
-          endpoints:
-            type: object
-            description: Named addresses, e.g. {a2a, site}.
-            additionalProperties:
-              type: string
-          protocols:
-            type: array
-            items:
-              type: string
-          tags:
-            type: array
-            items:
-              type: string
-    AgentCardResponse:
-      type: object
-      properties:
-        voice:
-          type: string
-        agent:
-          $ref: '#/components/schemas/AgentCard'
-        seen:
-          type: integer
-          description: How many times the card has been read.
-    SearchResult:
-      type: object
-      properties:
-        voice:
-          type: string
-        query:
-          type: string
-        agents:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchHit'
     SearchHit:
       allOf:
       - type: object
@@ -237,12 +243,6 @@ components:
             type: string
             description: Which field matched, e.g. "translation (specialty)".
       - $ref: '#/components/schemas/AgentSummary'
-    Voice:
-      type: object
-      description: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing else.
-      properties:
-        voice:
-          type: string
     SpecialtyPage:
       type: object
       properties:

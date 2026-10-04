@@ -200,12 +200,6 @@ paths:
           description: Your edit token. Response shape not observed; not modelled.
 components:
   schemas:
-    Voice:
-      type: object
-      description: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing else.
-      properties:
-        voice:
-          type: string
     RegisterRequest:
       type: object
       required:
@@ -232,6 +226,12 @@ components:
           type: array
           items:
             type: string
+    Voice:
+      type: object
+      description: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing else.
+      properties:
+        voice:
+          type: string
 externalDocs:
   description: The provider's own machine index of every endpoint
   url: https://allagents.app/api
