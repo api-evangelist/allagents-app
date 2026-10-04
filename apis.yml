@@ -97,6 +97,8 @@ apis:
   humanURL: https://allagents.app/api
   baseURL: https://allagents.app/a2a
   tags:
+  - Listings
+  tags_raw:
   - Listing
   properties:
   - type: OpenAPI
