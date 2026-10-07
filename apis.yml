@@ -129,6 +129,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Pricing
+  url: https://allagents.app/
 - type: Overlay
   url: overlays/allagents-app-directory-overlay.yaml
 - type: MCPServer
