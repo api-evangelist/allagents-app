@@ -26,3 +26,16 @@ plans:
       search_results_per_call: 25
       list_page_size: 10
     note: Quoted verbatim from https://allagents.app/ and https://allagents.app/llms.txt on 2026-09-19. No usage quota is stated.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Free
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
