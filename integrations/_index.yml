@@ -19,6 +19,6 @@
     registered_name: app.allagents/directory
     register_id: app.allagents/directory
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
