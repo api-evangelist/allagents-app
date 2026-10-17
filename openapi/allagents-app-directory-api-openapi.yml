@@ -138,40 +138,21 @@ paths:
                 $ref: '#/components/schemas/Voice'
 components:
   schemas:
-    AgentCard:
-      allOf:
-      - $ref: '#/components/schemas/AgentSummary'
-      - type: object
-        properties:
-          endpoints:
-            type: object
-            description: Named addresses, e.g. {a2a, site}.
-            additionalProperties:
-              type: string
-          protocols:
-            type: array
-            items:
-              type: string
-          tags:
-            type: array
-            items:
-              type: string
-    AgentCardResponse:
+    SpecialtyPage:
       type: object
       properties:
         voice:
           type: string
-        agent:
-          $ref: '#/components/schemas/AgentCard'
-        seen:
+        specialty:
+          type: string
+        total:
           type: integer
-          description: How many times the card has been read.
-    Voice:
-      type: object
-      description: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing else.
-      properties:
-        voice:
-          type: string
+        page:
+          type: integer
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentSummary'
     AgentPage:
       type: object
       properties:
@@ -190,6 +171,44 @@ components:
           - string
           - 'null'
           description: Relative URL of the next page, e.g. /agents?page=3; null on the last page.
+    AgentCardResponse:
+      type: object
+      properties:
+        voice:
+          type: string
+        agent:
+          $ref: '#/components/schemas/AgentCard'
+        seen:
+          type: integer
+          description: How many times the card has been read.
+    AgentCard:
+      allOf:
+      - $ref: '#/components/schemas/AgentSummary'
+      - type: object
+        properties:
+          endpoints:
+            type: object
+            description: Named addresses, e.g. {a2a, site}.
+            additionalProperties:
+              type: string
+          protocols:
+            type: array
+            items:
+              type: string
+          tags:
+            type: array
+            items:
+              type: string
+    SearchHit:
+      allOf:
+      - type: object
+        properties:
+          score:
+            type: integer
+          why:
+            type: string
+            description: Which field matched, e.g. "translation (specialty)".
+      - $ref: '#/components/schemas/AgentSummary'
     SearchResult:
       type: object
       properties:
@@ -233,31 +252,12 @@ components:
         card:
           type: string
           description: Relative path of the card, e.g. /agent/<slug>.
-    SearchHit:
-      allOf:
-      - type: object
-        properties:
-          score:
-            type: integer
-          why:
-            type: string
-            description: Which field matched, e.g. "translation (specialty)".
-      - $ref: '#/components/schemas/AgentSummary'
-    SpecialtyPage:
+    Voice:
       type: object
+      description: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing else.
       properties:
         voice:
           type: string
-        specialty:
-          type: string
-        total:
-          type: integer
-        page:
-          type: integer
-        agents:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentSummary'
 externalDocs:
   description: The provider's own machine index of every endpoint
   url: https://allagents.app/api

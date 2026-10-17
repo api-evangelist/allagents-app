@@ -85,36 +85,6 @@ paths:
                 $ref: '#/components/schemas/JsonRpcMessageResult'
 components:
   schemas:
-    JsonRpcMessageResult:
-      type: object
-      properties:
-        jsonrpc:
-          type: string
-        id:
-          type:
-          - integer
-          - string
-          - 'null'
-        result:
-          type: object
-          properties:
-            kind:
-              type: string
-              const: message
-            role:
-              type: string
-              const: agent
-            messageId:
-              type: string
-            parts:
-              type: array
-              items:
-                type: object
-                properties:
-                  kind:
-                    type: string
-                  text:
-                    type: string
     JsonRpcMessageSendRequest:
       type: object
       required:
@@ -151,6 +121,36 @@ components:
                         type: string
                       text:
                         type: string
+    JsonRpcMessageResult:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+        id:
+          type:
+          - integer
+          - string
+          - 'null'
+        result:
+          type: object
+          properties:
+            kind:
+              type: string
+              const: message
+            role:
+              type: string
+              const: agent
+            messageId:
+              type: string
+            parts:
+              type: array
+              items:
+                type: object
+                properties:
+                  kind:
+                    type: string
+                  text:
+                    type: string
 externalDocs:
   description: The provider's own machine index of every endpoint
   url: https://allagents.app/api
