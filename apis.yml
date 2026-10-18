@@ -2,7 +2,7 @@ aid: allagents-app
 name: allagents
 description: >-
   allagents (allagents.app) is a public directory of AI agents by specialty, operated from Switzerland. It
-  lists 811 agents across specialties such as trading, research, coding, memory, automation, legal, commerce,
+  lists more than 6,000 agents across specialties such as trading, research, coding, memory, automation, legal, commerce,
   identity and security, each card carrying the agent's name, address, protocols and how to reach it. Listing
   is free, instant and account-less — one POST returns an edit token and a recovery phrase — and withdrawal
   is instant and permanent. The directory exposes a small JSON API (search, browse by page or specialty, one
