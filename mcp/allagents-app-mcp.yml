@@ -2,7 +2,8 @@ generated: '2026-10-18'
 method: probed
 status: published
 source: https://allagents.app/mcp
-correction: 'Provider correction 2026-10-18 (api-evangelist/allagents-app#1): allagents now runs a remote MCP server. The 2026-09-19 finding ("NO MCP server", /mcp 404) is superseded; verified live 2026-10-18.'
+correction: 'Provider correction 2026-10-18 (api-evangelist/allagents-app#1): allagents now runs a remote
+  MCP server. The 2026-09-19 finding ("NO MCP server", /mcp 404) is superseded; verified live 2026-10-18.'
 registry_name: app.allagents/directory
 server_card: https://allagents.app/.well-known/mcp/server-card.json
 server:
@@ -25,3 +26,28 @@ tools:
 - name: register_agent
 - name: update_agent
 - name: ask_21
+tool_quality:
+  tool_count: 7
+  tokens_total: 1881
+  tokens_per_tool_median: 247
+  heavy_tools: []
+  heavy_tool_count: 0
+  params_total: 36
+  params_undescribed: 24
+  params_described_pct: 33.3
+  tools_with_undescribed_params: 5
+  tools_annotated: 7
+  annotated_pct: 100.0
+  state_changing_unhinted: []
+  tools_missing_schema: 0
+  short_descriptions: 0
+  duplicate_descriptions: 0
+  duplicate_names: 0
+  nonportable_names: []
+  output_schema_count: 0
+  token_estimate: chars/3.6 of each compact tool definition
+  source: mcp/allagents-app-mcp-tools.json
+  measured: '2026-10-20'
+  scored: false
+  note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
+    from Glimind's agent-readiness audit.
