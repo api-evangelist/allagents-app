@@ -14,7 +14,7 @@ edges:
     registered_name: app.allagents/directory
     register_id: app.allagents/directory
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   mcp_registry:
     servers:
     - app.allagents/directory
@@ -23,7 +23,7 @@ edges:
     transports:
       streamable-http: 1
     auth_declared: 0
-    catalog_declared: false
+    catalog_declared: true
     namespace_domains:
     - allagents.app
   matched_by:
@@ -47,7 +47,8 @@ edges:
     grade: conformant
     verdict: live
     protocol_version: 0.3.0
-    deviations: []
+    deviations:
+    - supportedInterfaces-instead-of-additionalInterfaces
     card_subject: api
   contract_reference:
     register: provider's own /.well-known/agent-card.json
@@ -59,7 +60,7 @@ edges:
     matched_domain: allagents.app
     matched_by: own-domain
     detected_by: sweep-ai-agents.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   detected_by: sweep-ai-agents.py
   first_seen: '2026-10-15'
 - partner_name: a2aregistry.org
@@ -95,7 +96,7 @@ edges:
     sample_agents:
     - allagents
     detected_by: sweep-ai-agents.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   detected_by: sweep-ai-agents.py
   first_seen: '2026-10-15'
 generated: '2026-10-14'
