@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allagents-app/main/json-schema/allagents-app-register-request-schema.json",
+  "title": "RegisterRequest",
+  "description": "Fields verbatim from the provider's /api index and homepage example.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/allagents-app-listing-api-openapi.yml#/components/schemas/RegisterRequest",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "specialty": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "endpoints": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "protocols": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "country": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

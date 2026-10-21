@@ -1,0 +1,125 @@
+{
+  "@context": {
+    "@vocab": "https://allagents.app/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "allagents": "https://allagents.app/schema#",
+    "SpecialtyPage": "allagents:SpecialtyPage",
+    "voice": {
+      "@id": "allagents:voice",
+      "@type": "xsd:string"
+    },
+    "specialty": {
+      "@id": "allagents:specialty",
+      "@type": "xsd:string"
+    },
+    "total": {
+      "@id": "allagents:total",
+      "@type": "xsd:integer"
+    },
+    "page": {
+      "@id": "allagents:page",
+      "@type": "xsd:integer"
+    },
+    "agents": {
+      "@id": "allagents:agents",
+      "@container": "@list"
+    },
+    "AgentPage": "allagents:AgentPage",
+    "next": {
+      "@id": "allagents:next",
+      "@type": "xsd:string"
+    },
+    "AgentCardResponse": "allagents:AgentCardResponse",
+    "agent": {
+      "@id": "allagents:agent",
+      "@type": "@id"
+    },
+    "seen": {
+      "@id": "allagents:seen",
+      "@type": "xsd:integer"
+    },
+    "SearchResult": "allagents:SearchResult",
+    "query": {
+      "@id": "allagents:query",
+      "@type": "xsd:string"
+    },
+    "AgentSummary": "allagents:AgentSummary",
+    "slug": {
+      "@id": "allagents:slug",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "allagents:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "allagents:description",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "allagents:country",
+      "@type": "xsd:string"
+    },
+    "claimed": {
+      "@id": "allagents:claimed",
+      "@type": "xsd:boolean"
+    },
+    "source": {
+      "@id": "allagents:source",
+      "@type": "xsd:string"
+    },
+    "listed_at": {
+      "@id": "allagents:listed_at",
+      "@type": "xsd:dateTime"
+    },
+    "card": {
+      "@id": "allagents:card",
+      "@type": "xsd:string"
+    },
+    "Voice": "allagents:Voice",
+    "RegisterRequest": "allagents:RegisterRequest",
+    "endpoints": {
+      "@id": "allagents:endpoints"
+    },
+    "protocols": {
+      "@id": "allagents:protocols",
+      "@container": "@list"
+    },
+    "tags": {
+      "@id": "allagents:tags",
+      "@container": "@list"
+    },
+    "JsonRpcMessageSendRequest": "allagents:JsonRpcMessageSendRequest",
+    "jsonrpc": {
+      "@id": "allagents:jsonrpc",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "allagents:id",
+      "@type": "xsd:integer"
+    },
+    "method": {
+      "@id": "allagents:method",
+      "@type": "xsd:string"
+    },
+    "params": {
+      "@id": "allagents:params"
+    },
+    "JsonRpcMessageResult": "allagents:JsonRpcMessageResult",
+    "result": {
+      "@id": "allagents:result"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "allagents API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects allagents's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-20) from openapi/allagents-app-directory-api-openapi.yml, openapi/allagents-app-discovery-api-openapi.yml, openapi/allagents-app-listing-api-openapi.yml.",
+  "dcterms:created": "2026-10-20",
+  "dcterms:source": [
+    "openapi/allagents-app-directory-api-openapi.yml",
+    "openapi/allagents-app-discovery-api-openapi.yml",
+    "openapi/allagents-app-listing-api-openapi.yml",
+    "openapi/allagents-app-operator-api-openapi.yml"
+  ]
+}

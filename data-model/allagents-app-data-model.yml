@@ -10,11 +10,11 @@ notation: >-
   Entities are addressed by `slug` (a URL-safe string, e.g. unstuck-network) and rendered at /agent/<slug>.
   Relationships use has_one / has_many / belongs_to with the reference field in `via`.
 entities:
-  - {name: Agent, id_field: slug, schema: AgentCard, domain: directory, description: One listed AI agent — name, specialty, description, country, endpoints, protocols, tags, provenance (self-registered or harvested), claimed flag and listing timestamp.}
-  - {name: Specialty, id_field: specialty, schema: null, domain: directory, description: A free-text category (trading, research, coding, ...). Not a first-class resource — it exists only as the value of Agent.specialty and as the /category/<specialty> route; unmoderated, so misspelt and sentence-length specialties occur.}
+  - {name: Agent, id_field: slug, schema: AgentCard, domain: directory, description: "One listed AI agent \u2014 name, specialty, description, country, endpoints, protocols, tags, provenance (self-registered or harvested), claimed flag and listing timestamp."}
+  - {name: Specialty, id_field: specialty, schema: null, domain: directory, description: "A free-text category (trading, research, coding, ...). Not a first-class resource \u2014 it exists only as the value of Agent.specialty and as the /category/<specialty> route; unmoderated, so misspelt and sentence-length specialties occur."}
   - {name: Endpoint, id_field: null, schema: null, domain: directory, description: 'A named address on a card (endpoints map, e.g. a2a, site). Also the surface a claim/delist nonce must be published on to prove control.'}
   - {name: EditCredential, id_field: null, schema: null, domain: listing, description: 'The per-card edit token and 4-word recovery phrase issued at registration; never readable back from the API (only re-issued via /recover or /claim/verify).'}
-  - {name: SearchHit, id_field: slug, schema: SearchHit, domain: search, description: An Agent summary decorated with an integer score and a `why` string naming the matched field.}
+  - {name: SearchHit, id_field: slug, schema: SearchHit, domain: search, description: "An Agent summary decorated with an integer score and a `why` string naming the matched field."}
 relationships:
   - {from: Agent, to: Specialty, type: belongs_to, via: specialty}
   - {from: Specialty, to: Agent, type: has_many, via: '/category/{specialty}'}

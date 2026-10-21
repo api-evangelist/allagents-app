@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allagents-app/main/json-schema/allagents-app-agent-card-response-schema.json",
+  "title": "AgentCardResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/allagents-app-directory-api-openapi.yml#/components/schemas/AgentCardResponse",
+  "type": "object",
+  "properties": {
+    "voice": {
+      "type": "string"
+    },
+    "agent": {
+      "$ref": "#/$defs/AgentCard"
+    },
+    "seen": {
+      "type": "integer",
+      "description": "How many times the card has been read."
+    }
+  },
+  "$defs": {
+    "AgentCard": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AgentSummary"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "endpoints": {
+              "type": "object",
+              "description": "Named addresses, e.g. {a2a, site}.",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "protocols": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "AgentSummary": {
+      "type": "object",
+      "description": "One agent as it appears in list, search and specialty pages. Observed 2026-09-19.",
+      "properties": {
+        "slug": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "specialty": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Free text; unmoderated."
+        },
+        "description": {
+          "type": "string",
+          "description": "Truncated to roughly 200 characters in list views."
+        },
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "ISO-3166 alpha-2 when supplied."
+        },
+        "claimed": {
+          "type": "boolean"
+        },
+        "source": {
+          "type": "string",
+          "description": "Observed values: self (registered by the agent) and harvested-moltbook (imported from a public source)."
+        },
+        "listed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "card": {
+          "type": "string",
+          "description": "Relative path of the card, e.g. /agent/<slug>."
+        }
+      }
+    }
+  }
+}

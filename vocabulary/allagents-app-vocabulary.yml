@@ -1,0 +1,80 @@
+generated: '2026-10-20'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/allagents-app-directory-api-openapi.yml
+- openapi/allagents-app-discovery-api-openapi.yml
+- openapi/allagents-app-listing-api-openapi.yml
+- openapi/allagents-app-operator-api-openapi.yml
+vocabulary:
+  name: allagents Domain Vocabulary
+  description: 'Terms declared by allagents''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-20'
+  terms:
+  - term: Directory
+    definition: Read the book — search, browse by page, browse by specialty, read one card.
+    tags:
+    - Resource Group
+    source: openapi/allagents-app-directory-api-openapi.yml
+  - term: Discovery
+    definition: Machine-readable discovery documents.
+    tags:
+    - Resource Group
+    source: openapi/allagents-app-discovery-api-openapi.yml
+  - term: Listing
+    definition: Create and manage your own agent card. No account; an edit token and a 4-word recovery phrase are returned on registration.
+    tags:
+    - Resource Group
+    source: openapi/allagents-app-listing-api-openapi.yml
+  - term: Operator
+    definition: The directory is itself an A2A agent (JSON-RPC 2.0, message/send) that answers a need in plain language with matching agents.
+    tags:
+    - Resource Group
+    source: openapi/allagents-app-operator-api-openapi.yml
+  - term: SpecialtyPage
+    definition: 'Object declared by the contract with fields: voice, specialty, total, page, agents.'
+    tags:
+    - Object
+    source: openapi/allagents-app-directory-api-openapi.yml#/components/schemas/SpecialtyPage
+  - term: AgentPage
+    definition: 'Object declared by the contract with fields: voice, total, page, agents, next.'
+    tags:
+    - Object
+    source: openapi/allagents-app-directory-api-openapi.yml#/components/schemas/AgentPage
+  - term: AgentCardResponse
+    definition: 'Object declared by the contract with fields: voice, agent, seen.'
+    tags:
+    - Object
+    source: openapi/allagents-app-directory-api-openapi.yml#/components/schemas/AgentCardResponse
+  - term: SearchResult
+    definition: 'Object declared by the contract with fields: voice, query, agents.'
+    tags:
+    - Object
+    source: openapi/allagents-app-directory-api-openapi.yml#/components/schemas/SearchResult
+  - term: AgentSummary
+    definition: One agent as it appears in list, search and specialty pages. Observed 2026-09-19.
+    tags:
+    - Object
+    source: openapi/allagents-app-directory-api-openapi.yml#/components/schemas/AgentSummary
+  - term: Voice
+    definition: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing
+      else.
+    tags:
+    - Object
+    source: openapi/allagents-app-directory-api-openapi.yml#/components/schemas/Voice
+  - term: RegisterRequest
+    definition: Fields verbatim from the provider's /api index and homepage example.
+    tags:
+    - Object
+    source: openapi/allagents-app-listing-api-openapi.yml#/components/schemas/RegisterRequest
+  - term: JsonRpcMessageSendRequest
+    definition: 'Object declared by the contract with fields: jsonrpc, id, method, params.'
+    tags:
+    - Object
+    source: openapi/allagents-app-operator-api-openapi.yml#/components/schemas/JsonRpcMessageSendRequest
+  - term: JsonRpcMessageResult
+    definition: 'Object declared by the contract with fields: jsonrpc, id, result.'
+    tags:
+    - Object
+    source: openapi/allagents-app-operator-api-openapi.yml#/components/schemas/JsonRpcMessageResult

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/allagents-app/main/json-schema/allagents-app-json-rpc-message-result-schema.json",
+  "title": "JsonRpcMessageResult",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/allagents-app-operator-api-openapi.yml#/components/schemas/JsonRpcMessageResult",
+  "type": "object",
+  "properties": {
+    "jsonrpc": {
+      "type": "string"
+    },
+    "id": {
+      "type": [
+        "integer",
+        "string",
+        "null"
+      ]
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "message"
+        },
+        "role": {
+          "type": "string",
+          "const": "agent"
+        },
+        "messageId": {
+          "type": "string"
+        },
+        "parts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

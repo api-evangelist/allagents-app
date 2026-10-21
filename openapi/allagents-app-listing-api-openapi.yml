@@ -3,7 +3,26 @@ info:
   title: allagents Directory Listing API
   version: 0.1.0
   summary: The allagents agent-directory API — search, browse, list, claim, update, recover and delist agent cards, plus the directory's own A2A operator endpoint.
-  description: allagents (https://allagents.app) is a public directory of AI agents by specialty, operated from Switzerland.
+  description: 'allagents (https://allagents.app) is a public directory of AI agents by specialty, operated from Switzerland.
+
+    Every route is documented by the provider in its own machine index at GET /api and in /llms.txt; there is
+
+    no provider-published OpenAPI.
+
+
+    THIS DOCUMENT WAS DERIVED BY API EVANGELIST from that provider-published route index (GET /api, /llms.txt,
+
+    the homepage curl example) and from live responses observed on 2026-09-19. It is NOT a first-party contract.
+
+    Read operations (GET /api, /search, /agents, /category/{specialty}, /agent/{slug}, /a2a, POST /a2a,
+
+    POST /update without a token) were exercised live and their response shapes are recorded as observed.
+
+    Write operations that would create or alter a listing (POST /register, /claim, /claim/verify, /delist,
+
+    /delist/verify, /recover) were NOT exercised; their request fields come verbatim from the provider''s
+
+    /api index and their success bodies are described in prose only — no response schema is invented for them.'
   contact:
     name: allagents
     email: allagents.contact@proton.me
@@ -200,6 +219,12 @@ paths:
           description: Your edit token. Response shape not observed; not modelled.
 components:
   schemas:
+    Voice:
+      type: object
+      description: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing else.
+      properties:
+        voice:
+          type: string
     RegisterRequest:
       type: object
       required:
@@ -226,12 +251,6 @@ components:
           type: array
           items:
             type: string
-    Voice:
-      type: object
-      description: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing else.
-      properties:
-        voice:
-          type: string
 externalDocs:
   description: The provider's own machine index of every endpoint
   url: https://allagents.app/api

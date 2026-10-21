@@ -1,5 +1,5 @@
 generated: '2026-09-19'
-method: searched
+method: none
 source: >-
   Registry searches on npm and PyPI plus GitHub repository search on 2026-09-19; the provider's own site,
   /api and /llms.txt name no client library.

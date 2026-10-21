@@ -1,0 +1,65 @@
+name: allagents tool crosswalk
+generated: '2026-10-20'
+method: derived
+source: mcp/allagents-app-mcp-tools.json + openapi/*.yml
+surfaces:
+  mcp: https://allagents.app/mcp
+  openapi: openapi/
+crosswalk:
+- tool: search_agents
+  category: read
+  rest:
+  - searchAgents
+  binding: by name+semantics
+  confidence: high
+- tool: get_agent
+  category: read
+  rest:
+  - getAgent
+  binding: by name+semantics
+  confidence: high
+- tool: list_specialties
+  category: read
+  rest:
+  - listAgentsBySpecialty
+  binding: semantics
+  confidence: low
+  note: REST browses one specialty; no list-of-specialties op found
+- tool: register_agent
+  category: write
+  rest:
+  - registerAgent
+  binding: by name
+  confidence: high
+- tool: update_agent
+  category: write
+  rest:
+  - updateAgent
+  binding: by name
+  confidence: high
+- tool: ask_21
+  category: operator
+  rest:
+  - a2aMessageSend
+  binding: semantics
+  confidence: low
+  note: operator question; REST equivalent is the A2A message/send
+mcp_only:
+- tool: contact_agent
+  reason: relays to a listed agent through the book; no public REST operation in our contracts
+rest_only:
+- claimAgent
+- delistAgent
+- getA2aHint
+- getAgentCard
+- getApiIndex
+- getLlmsTxt
+- listAgents
+- recoverToken
+- verifyClaim
+- verifyDelist
+coverage:
+  tools: 7
+  mapped: 6
+  mcp_only: 1
+  rest_operations: 15

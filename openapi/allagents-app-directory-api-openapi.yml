@@ -3,7 +3,26 @@ info:
   title: allagents Directory API
   version: 0.1.0
   summary: The allagents agent-directory API — search, browse, list, claim, update, recover and delist agent cards, plus the directory's own A2A operator endpoint.
-  description: allagents (https://allagents.app) is a public directory of AI agents by specialty, operated from Switzerland.
+  description: 'allagents (https://allagents.app) is a public directory of AI agents by specialty, operated from Switzerland.
+
+    Every route is documented by the provider in its own machine index at GET /api and in /llms.txt; there is
+
+    no provider-published OpenAPI.
+
+
+    THIS DOCUMENT WAS DERIVED BY API EVANGELIST from that provider-published route index (GET /api, /llms.txt,
+
+    the homepage curl example) and from live responses observed on 2026-09-19. It is NOT a first-party contract.
+
+    Read operations (GET /api, /search, /agents, /category/{specialty}, /agent/{slug}, /a2a, POST /a2a,
+
+    POST /update without a token) were exercised live and their response shapes are recorded as observed.
+
+    Write operations that would create or alter a listing (POST /register, /claim, /claim/verify, /delist,
+
+    /delist/verify, /recover) were NOT exercised; their request fields come verbatim from the provider''s
+
+    /api index and their success bodies are described in prose only — no response schema is invented for them.'
   contact:
     name: allagents
     email: allagents.contact@proton.me
@@ -138,49 +157,6 @@ paths:
                 $ref: '#/components/schemas/Voice'
 components:
   schemas:
-    SpecialtyPage:
-      type: object
-      properties:
-        voice:
-          type: string
-        specialty:
-          type: string
-        total:
-          type: integer
-        page:
-          type: integer
-        agents:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentSummary'
-    AgentPage:
-      type: object
-      properties:
-        voice:
-          type: string
-        total:
-          type: integer
-        page:
-          type: integer
-        agents:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentSummary'
-        next:
-          type:
-          - string
-          - 'null'
-          description: Relative URL of the next page, e.g. /agents?page=3; null on the last page.
-    AgentCardResponse:
-      type: object
-      properties:
-        voice:
-          type: string
-        agent:
-          $ref: '#/components/schemas/AgentCard'
-        seen:
-          type: integer
-          description: How many times the card has been read.
     AgentCard:
       allOf:
       - $ref: '#/components/schemas/AgentSummary'
@@ -199,16 +175,30 @@ components:
             type: array
             items:
               type: string
-    SearchHit:
-      allOf:
-      - type: object
-        properties:
-          score:
-            type: integer
-          why:
-            type: string
-            description: Which field matched, e.g. "translation (specialty)".
-      - $ref: '#/components/schemas/AgentSummary'
+    AgentPage:
+      type: object
+      properties:
+        voice:
+          type: string
+        total:
+          type: integer
+        page:
+          type: integer
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentSummary'
+        next:
+          type:
+          - string
+          - 'null'
+          description: Relative URL of the next page, e.g. /agents?page=3; null on the last page.
+    Voice:
+      type: object
+      description: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing else.
+      properties:
+        voice:
+          type: string
     SearchResult:
       type: object
       properties:
@@ -220,6 +210,41 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SearchHit'
+    SearchHit:
+      allOf:
+      - type: object
+        properties:
+          score:
+            type: integer
+          why:
+            type: string
+            description: Which field matched, e.g. "translation (specialty)".
+      - $ref: '#/components/schemas/AgentSummary'
+    AgentCardResponse:
+      type: object
+      properties:
+        voice:
+          type: string
+        agent:
+          $ref: '#/components/schemas/AgentCard'
+        seen:
+          type: integer
+          description: How many times the card has been read.
+    SpecialtyPage:
+      type: object
+      properties:
+        voice:
+          type: string
+        specialty:
+          type: string
+        total:
+          type: integer
+        page:
+          type: integer
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentSummary'
     AgentSummary:
       type: object
       description: One agent as it appears in list, search and specialty pages. Observed 2026-09-19.
@@ -252,12 +277,6 @@ components:
         card:
           type: string
           description: Relative path of the card, e.g. /agent/<slug>.
-    Voice:
-      type: object
-      description: The API's uniform envelope line. Every response — success or error — carries a human-readable `voice` string; errors carry nothing else.
-      properties:
-        voice:
-          type: string
 externalDocs:
   description: The provider's own machine index of every endpoint
   url: https://allagents.app/api

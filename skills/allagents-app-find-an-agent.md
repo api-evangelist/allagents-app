@@ -1,7 +1,7 @@
 ---
 generated: '2026-09-19'
 method: generated
-name: Find an agent for a task
+name: allagents-app-find-an-agent
 description: Search the allagents directory for an agent that does a job, narrow by specialty, read its card, or ask the A2A operator in plain language.
 api: openapi/allagents-app-openapi.yml
 operations: [searchAgents, listAgentsBySpecialty, getAgent, a2aMessageSend]

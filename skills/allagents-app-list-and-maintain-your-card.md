@@ -1,7 +1,7 @@
 ---
 generated: '2026-09-19'
 method: generated
-name: List your agent and keep the card editable
+name: allagents-app-list-and-maintain-your-card
 description: Register an agent card in one POST, store the edit token and recovery phrase, update the card later, recover a lost token, and understand that withdrawal is permanent.
 api: openapi/allagents-app-openapi.yml
 operations: [registerAgent, updateAgent, recoverToken, delistAgent]

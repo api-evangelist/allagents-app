@@ -1,24 +1,34 @@
 aid: allagents-app
+
 name: allagents
-description: >-
-  allagents (allagents.app) is a public directory of AI agents by specialty, operated from Switzerland. It
-  lists more than 6,000 agents across specialties such as trading, research, coding, memory, automation, legal, commerce,
-  identity and security, each card carrying the agent's name, address, protocols and how to reach it. Listing
-  is free, instant and account-less — one POST returns an edit token and a recovery phrase — and withdrawal
-  is instant and permanent. The directory exposes a small JSON API (search, browse by page or specialty, one
-  card, register, update, claim, recover, delist), publishes an llms.txt, and is itself an A2A agent: its
-  conformant agent card at /.well-known/agent-card.json points at a JSON-RPC message/send operator that
-  answers a plain-language need with matching agents.
+
+description: 'allagents (allagents.app) is a public directory of AI agents by specialty, operated from Switzerland. It lists more than 6,000 agents
+  across specialties such as trading, research, coding, memory, automation, legal, commerce, identity and security, each card carrying the agent''s
+  name, address, protocols and how to reach it. Listing is free, instant and account-less — one POST returns an edit token and a recovery phrase
+  — and withdrawal is instant and permanent. The directory exposes a small JSON API (search, browse by page or specialty, one card, register,
+  update, claim, recover, delist), publishes an llms.txt, and is itself an A2A agent: its conformant agent card at /.well-known/agent-card.json
+  points at a JSON-RPC message/send operator that answers a plain-language need with matching agents.'
+
 image: https://allagents.app/logo.png
+
 url: https://raw.githubusercontent.com/api-evangelist/allagents-app/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:a2a-registry
+
 x-tier: profiled
+
 x-tier-reason: enrichment pass 2026-09-19 (local-v3; was a2a-registry harvest stub)
+
 x-headquarters: Switzerland
+
 specificationVersion: '0.20'
+
 created: '2026-09-19'
-modified: '2026-09-19'
+
+modified: '2026-10-20'
+
 tags:
 - Company
 - AI Agents
@@ -28,6 +38,7 @@ tags:
 - Search
 - Registry
 - Switzerland
+
 tags_raw:
 - Company
 - AI Agents
@@ -37,98 +48,30 @@ tags_raw:
 - Search
 - Registry
 - Switzerland
-apis:
-- name: allagents Operator (A2A Agent)
-  description: >-
-    The directory as an A2A agent. POST a JSON-RPC 2.0 message/send stating a need ("I need a translation
-    agent") and the operator answers with ranked matching agents and a card link for each. Discovered
-    through a conformant A2A 0.3.0 agent card at /.well-known/agent-card.json; no credentials required.
-  image: https://allagents.app/logo.png
-  humanURL: https://allagents.app/.well-known/agent-card.json
-  baseURL: https://allagents.app/a2a
-  tags:
-  - A2A
-  - AI Agents
-  - JSON-RPC
-  - Discovery
-  - Matchmaking
-  tags_raw:
-  - A2A
-  - AI Agents
-  - JSON-RPC
-  - discovery
-  - matchmaking
-  properties:
-  - type: Documentation
-    url: https://allagents.app/llms.txt
-- aid: allagents-app:allagents-app-directory-api
-  name: allagents Directory API
-  description: Read the book — search, browse by page, browse by specialty, read one card.
-  humanURL: https://allagents.app/api
-  baseURL: https://allagents.app/a2a
-  tags:
-  - Directory
-  properties:
-  - type: OpenAPI
-    url: openapi/allagents-app-directory-api-openapi.yml
-  - type: Documentation
-    url: https://allagents.app/api
-  - type: DataModel
-    url: data-model/allagents-app-data-model.yml
-- aid: allagents-app:allagents-app-discovery-api
-  name: allagents Discovery API
-  description: Machine-readable discovery documents.
-  humanURL: https://allagents.app/api
-  baseURL: https://allagents.app/a2a
-  tags:
-  - Discovery
-  properties:
-  - type: OpenAPI
-    url: openapi/allagents-app-discovery-api-openapi.yml
-  - type: Documentation
-    url: https://allagents.app/api
-  - type: DataModel
-    url: data-model/allagents-app-data-model.yml
-- aid: allagents-app:allagents-app-listing-api
-  name: allagents Listing API
-  description: >-
-    Create and manage your own agent card. No account; an edit token and a 4-word recovery phrase are
-    returned on registration.
-  humanURL: https://allagents.app/api
-  baseURL: https://allagents.app/a2a
-  tags:
-  - Listings
-  tags_raw:
-  - Listing
-  properties:
-  - type: OpenAPI
-    url: openapi/allagents-app-listing-api-openapi.yml
-  - type: Documentation
-    url: https://allagents.app/api
-  - type: DataModel
-    url: data-model/allagents-app-data-model.yml
-- aid: allagents-app:allagents-app-operator-api
-  name: allagents Operator API
-  description: >-
-    The directory is itself an A2A agent (JSON-RPC 2.0, message/send) that answers a need in plain language
-    with matching agents.
-  humanURL: https://allagents.app/api
-  baseURL: https://allagents.app/a2a
-  tags:
-  - Operator
-  properties:
-  - type: OpenAPI
-    url: openapi/allagents-app-operator-api-openapi.yml
-  - type: Documentation
-    url: https://allagents.app/api
-  - type: DataModel
-    url: data-model/allagents-app-data-model.yml
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: ChangeLog
+  url: changelog/allagents-app-changelog.yml
+- type: ToolCrosswalk
+  url: mcp/allagents-app-tool-crosswalk.yml
+- type: AgenticAccess
+  url: agentic-access/allagents-app-agentic-access.yml
+- type: Spectral
+  url: rules/allagents-app-rules.yml
+- type: JSONLD
+  url: json-ld/allagents-app-context.jsonld
+- type: Vocabulary
+  url: vocabulary/allagents-app-vocabulary.yml
+- type: Hosts
+  url: hosts/allagents-app-hosts.yml
+- type: IntegrationEdges
+  url: integrations/allagents-app-integration-edges.yml
 - type: Pricing
   url: https://allagents.app/
 - type: Overlay
@@ -164,29 +107,123 @@ common:
   url: lifecycle/allagents-app-lifecycle.yml
 - type: Authentication
   url: authentication/allagents-app-authentication.yml
-- type: Conventions
-  url: conventions/allagents-app-conventions.yml
 - type: DomainSecurity
   url: security/allagents-app-domain-security.yml
 - type: Plans
   url: plans/allagents-app-plans-pricing.yml
-- type: RateLimits
-  url: rate-limits/allagents-app-rate-limits.yml
 - type: AgentSkill
   url: skills/_index.yml
-- type: Packages
-  url: packages/allagents-app-packages.yml
 - type: RegulatoryPosture
   url: regulatory/allagents-app-regulatory-posture.yml
-x-enrichment:
-  date: '2026-09-19'
-  status: enriched
-  artifacts_added: 22
-  pass: local-v3
+
+apis:
+- name: allagents Operator (A2A Agent)
+  description: The directory as an A2A agent. POST a JSON-RPC 2.0 message/send stating a need ("I need a translation agent") and the operator
+    answers with ranked matching agents and a card link for each. Discovered through a conformant A2A 0.3.0 agent card at /.well-known/agent-card.json;
+    no credentials required.
+  image: https://allagents.app/logo.png
+  humanURL: https://allagents.app/.well-known/agent-card.json
+  baseURL: https://allagents.app/a2a
+  tags:
+  - A2A
+  - AI Agents
+  - JSON-RPC
+  - Discovery
+  - Matchmaking
+  tags_raw:
+  - A2A
+  - AI Agents
+  - JSON-RPC
+  - discovery
+  - matchmaking
+  properties:
+  - type: Documentation
+    url: https://allagents.app/llms.txt
+  aid: allagents-app:allagents-operator-a2a-agent
+- aid: allagents-app:allagents-app-directory-api
+  name: allagents Directory API
+  description: Read the book — search, browse by page, browse by specialty, read one card.
+  humanURL: https://allagents.app/api
+  baseURL: https://allagents.app/a2a
+  tags:
+  - Directory
+  properties:
+  - type: OpenAPI
+    url: openapi/allagents-app-directory-api-openapi.yml
+  - type: Documentation
+    url: https://allagents.app/api
+  - type: DataModel
+    url: data-model/allagents-app-data-model.yml
+  - type: JSONSchema
+    url: json-schema/allagents-app-agent-page-schema.json
+  - type: JSONSchema
+    url: json-schema/allagents-app-specialty-page-schema.json
+  - type: JSONSchema
+    url: json-schema/allagents-app-agent-card-response-schema.json
+  - type: JSONSchema
+    url: json-schema/allagents-app-search-result-schema.json
+- aid: allagents-app:allagents-app-discovery-api
+  name: allagents Discovery API
+  description: Machine-readable discovery documents.
+  humanURL: https://allagents.app/api
+  baseURL: https://allagents.app/a2a
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/allagents-app-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://allagents.app/api
+  - type: DataModel
+    url: data-model/allagents-app-data-model.yml
+- aid: allagents-app:allagents-app-listing-api
+  name: allagents Listing API
+  description: Create and manage your own agent card. No account; an edit token and a 4-word recovery phrase are returned on registration.
+  humanURL: https://allagents.app/api
+  baseURL: https://allagents.app/a2a
+  tags:
+  - Listings
+  tags_raw:
+  - Listing
+  properties:
+  - type: OpenAPI
+    url: openapi/allagents-app-listing-api-openapi.yml
+  - type: Documentation
+    url: https://allagents.app/api
+  - type: DataModel
+    url: data-model/allagents-app-data-model.yml
+  - type: JSONSchema
+    url: json-schema/allagents-app-register-request-schema.json
+- aid: allagents-app:allagents-app-operator-api
+  name: allagents Operator API
+  description: The directory is itself an A2A agent (JSON-RPC 2.0, message/send) that answers a need in plain language with matching agents.
+  humanURL: https://allagents.app/api
+  baseURL: https://allagents.app/a2a
+  tags:
+  - Operator
+  properties:
+  - type: OpenAPI
+    url: openapi/allagents-app-operator-api-openapi.yml
+  - type: Documentation
+    url: https://allagents.app/api
+  - type: DataModel
+    url: data-model/allagents-app-data-model.yml
+  - type: JSONSchema
+    url: json-schema/allagents-app-json-rpc-message-send-request-schema.json
+  - type: JSONSchema
+    url: json-schema/allagents-app-json-rpc-message-result-schema.json
+
+
 x-a2a:
   verified: true
   probed: '2026-09-26'
-  url: "https://allagents.app/.well-known/agent-card.json"
-  grade: "conformant"
-  protocol_version: "0.3.0"
+  url: https://allagents.app/.well-known/agent-card.json
+  grade: conformant
+  protocol_version: 0.3.0
   control: 404
+
+x-enrichment:
+  date: '2026-10-20'
+  status: enriched
+  artifacts_added: 3
+  pass: local-v5

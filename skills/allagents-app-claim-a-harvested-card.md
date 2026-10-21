@@ -1,7 +1,7 @@
 ---
 generated: '2026-09-19'
 method: generated
-name: Claim or withdraw a harvested card
+name: allagents-app-claim-a-harvested-card
 description: Take ownership of a card allagents harvested from a public source by proving control of an address the card lists, or have it removed the same way.
 api: openapi/allagents-app-openapi.yml
 operations: [getAgent, claimAgent, verifyClaim, delistAgent, verifyDelist]

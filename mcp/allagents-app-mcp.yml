@@ -13,7 +13,8 @@ server:
 deployment:
   mode: remote
   endpoint: https://allagents.app/mcp
-  auth: none (reads)
+  auth: none
+  auth_note: none for reads; writes use the edit token returned at registration
   verified: probed
   checked: '2026-10-18'
   evidence: POST tools/list without credentials returned 7 tools
