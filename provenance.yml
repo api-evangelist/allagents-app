@@ -9,25 +9,61 @@ artifacts:
   a2a/allagents-app-agent-card.json:
     method: unknown
     evidence: no authorship recorded
+  agentic-access/allagents-app-agentic-access.yml:
+    method: generated
+    evidence: declared in the artifact
   authentication/allagents-app-authentication.yml:
     method: searched
     evidence: declared in the artifact
+  changelog/allagents-app-changelog.yml:
+    method: searched
+    evidence: declared in the artifact
   conformance/allagents-app-conformance.yml:
-    method: unknown
-    evidence: no authorship recorded
-  conventions/allagents-app-conventions.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: declared in the artifact
   data-model/allagents-app-data-model.yml:
     method: derived
     evidence: declared in the artifact
   errors/allagents-app-problem-types.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: declared in the artifact
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  hosts/allagents-app-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/allagents-app-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
+  json-ld/allagents-app-context.jsonld:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/allagents-app-agent-card-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/allagents-app-agent-page-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/allagents-app-json-rpc-message-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/allagents-app-json-rpc-message-send-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/allagents-app-register-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/allagents-app-search-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/allagents-app-specialty-page-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-19T193153.yml:
@@ -60,24 +96,57 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/allagents-app-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
+  llms/allagents-app-llms-provenance.yml:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
   llms/allagents-app-llms.txt:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
+  mcp/allagents-app-mcp-tools.json:
+    method: unknown
+    evidence: no authorship recorded
   mcp/allagents-app-mcp.yml:
+    method: unknown
+    evidence: no authorship recorded
+  mcp/allagents-app-tool-crosswalk.yml:
     method: derived
     evidence: declared in the artifact
-  openapi/allagents-app-openapi.yml:
+  openapi/allagents-app-directory-api-openapi.yml:
+    method: derived
+    evidence: declared in the artifact
+  openapi/allagents-app-discovery-api-openapi.yml:
+    method: derived
+    evidence: declared in the artifact
+  openapi/allagents-app-listing-api-openapi.yml:
+    method: derived
+    evidence: declared in the artifact
+  openapi/allagents-app-operator-api-openapi.yml:
     method: derived
     evidence: declared in the artifact
   overlays/allagents-app-directory-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   packages/allagents-app-packages.yml:
-    method: searched
-    evidence: declared in the artifact
+    method: unknown
+    evidence: no authorship recorded
   plans/allagents-app-plans-pricing.yml:
     method: searched
     evidence: declared in the artifact
@@ -86,6 +155,9 @@ artifacts:
     evidence: no authorship recorded
   regulatory/allagents-app-regulatory-posture.yml:
     method: searched
+    evidence: declared in the artifact
+  rules/allagents-app-rules.yml:
+    method: generated
     evidence: declared in the artifact
   security/allagents-app-domain-security.yml:
     method: unknown
@@ -102,6 +174,15 @@ artifacts:
   skills/allagents-app-list-and-maintain-your-card.md:
     method: generated
     evidence: declared in the artifact
+  vendors/allagents-app-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
+  vocabulary/allagents-app-vocabulary.yml:
+    method: derived
+    evidence: declared in the artifact
+  well-known/allagents-app-mcp-server-card.json:
+    method: unknown
+    evidence: no authorship recorded
   well-known/allagents-app-well-known.yml:
     method: unknown
     evidence: no authorship recorded
