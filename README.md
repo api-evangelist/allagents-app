@@ -64,7 +64,7 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-allagents (allagents.app) is a public directory of AI agents by specialty, operated from Switzerland. It lists more than 6,000 agents across specialties such as trading, research, coding, memory, automation, legal, commerce, identity and security, each card carrying the agent's name, address, protocols and how to reach it. Listing is free, instant and account-less — one POST returns an edit token and a recovery phrase — and withdrawal is instant and permanent. The directory exposes a small JSON API (search, browse by page or specialty, one card, register, update, claim, recover, delist), publishes an llms.txt, and is itself an A2A agent: its conformant agent card at /.well-known/agent-card.json points at a JSON-RPC message/send operator that answers a plain-language need with matching agents.
+allagents (allagents.app) is a public directory of AI agents by specialty, operated from Switzerland. It lists more than 12,000 agents across specialties such as trading, research, coding, memory, automation, legal, commerce, identity and security, each card carrying the agent's name, address, protocols and how to reach it. Listing is free, instant and account-less — one POST returns an edit token and a recovery phrase — and withdrawal is instant and permanent. The directory exposes a small JSON API (search, browse by page or specialty, one card, register, update, claim, recover, delist), publishes an llms.txt, and is itself an A2A agent: its conformant agent card at /.well-known/agent-card.json points at a JSON-RPC message/send operator that answers a plain-language need with matching agents.
 
 **Areas:** Company · AI Agents · Agent Directory · A2A · Discovery · Search · Registry · Switzerland
 
@@ -89,30 +89,6 @@ Each property below is a page on APIs.io carrying the machine-readable artifact 
 Model Context Protocol servers that expose the API to agents.
 
 - [allagents](https://apis.io/servers/allagents-app/allagents/)
-
-#### Agentic access (1)
-
-Which operations an agent can call, which act, and which need a human in the loop.
-
-- [Allagents App Agentic Access](https://apis.io/agentic-access/allagents-app/allagents-app-agentic-access/)
-
-#### JSON Schema (7)
-
-The data models the API reads and writes.
-
-- [AgentCardResponse](https://apis.io/schemas/allagents-app/allagents-app-agent-card-response/)
-- [AgentPage](https://apis.io/schemas/allagents-app/allagents-app-agent-page/)
-- [JsonRpcMessageResult](https://apis.io/schemas/allagents-app/allagents-app-json-rpc-message-result/)
-- [JsonRpcMessageSendRequest](https://apis.io/schemas/allagents-app/allagents-app-json-rpc-message-send-request/)
-- [RegisterRequest](https://apis.io/schemas/allagents-app/allagents-app-register-request/)
-- [SearchResult](https://apis.io/schemas/allagents-app/allagents-app-search-result/)
-- [SpecialtyPage](https://apis.io/schemas/allagents-app/allagents-app-specialty-page/)
-
-#### JSON-LD (1)
-
-Linked-data contexts for the provider's vocabulary.
-
-- [Allagents App Context](https://apis.io/jsonld/allagents-app/allagents-app-context/)
 
 #### Overlays (1)
 
@@ -151,24 +127,29 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 - [Website](https://allagents.app/)
 - [Documentation](https://allagents.app/api)
-- [Getting started](https://allagents.app/)
+- [Getting started](https://allagents.app/agent/ai-agent-setup-checklist)
 - [API reference](https://allagents.app/api)
 - [Pricing](https://allagents.app/)
+- [Sign up](https://allagents.app/register)
+- [Blog](https://allagents.app/agent/blog)
+- [Security](https://allagents.app/category/security)
+- [Terms of service](https://allagents.app/terms)
+- [Privacy policy](https://allagents.app/privacy)
 
 ## API Evangelist rating
 
-**Kin Score 27.8** — thin · rubric 0.25.0 · scored 2026-10-23
+**Kin Score 29.5** — thin · rubric 0.26.0 · scored 2026-11-02
 
 | Facet | Score |
 |---|---|
 | Discoverability | 75.0 |
 | Contract quality | 11.6 |
-| Contract governance | 18.2 |
+| Contract governance | 31.8 |
 | Operational transparency | 0.0 |
 | Developer ergonomics | 47.0 |
 | Access clarity | 31.6 |
 
-**Agent readiness 32.4** — agent-ready
+**Agent readiness 36.5** — agent-ready
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -193,6 +174,7 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Agentic Commerce | — |
 | Pagination Ratio | na |
 | Operation Distinctiveness | distinct |
+| MCP Tool Quality | three_quarters (partial credit) |
 
 **Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
 
